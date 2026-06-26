@@ -41,6 +41,9 @@ Route::middleware('auth')->group(function () {
     // Asset Management Routes
     Route::resource('assets', App\Http\Controllers\AssetController::class);
 
+    // Budgeting Routes
+    Route::resource('budgets', App\Http\Controllers\BudgetController::class);
+
     // Transaksi Kas Web Routes
     Route::get('/transactions', [TransactionWebController::class, 'index'])->name('transactions.index');
     Route::post('/transactions/cash-in', [TransactionWebController::class, 'storeCashIn'])->name('transactions.cash-in');

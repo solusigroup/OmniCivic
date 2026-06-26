@@ -27,6 +27,9 @@
                     <x-nav-link :href="route('settings.coa.index')" :active="request()->routeIs('settings.coa.index')">
                         {{ __('Master COA') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('budgets.index')" :active="request()->routeIs('budgets.*')">
+                        {{ __('Penganggaran') }}
+                    </x-nav-link>
                     <x-nav-link :href="route('assets.index')" :active="request()->routeIs('assets.*')">
                         {{ __('Aset') }}
                     </x-nav-link>
@@ -105,6 +108,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('settings.coa.index')" :active="request()->routeIs('settings.coa.index')">
                 {{ __('Master COA') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('budgets.index')" :active="request()->routeIs('budgets.*')">
+                {{ __('Penganggaran') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('assets.index')" :active="request()->routeIs('assets.*')">
                 {{ __('Aset') }}
