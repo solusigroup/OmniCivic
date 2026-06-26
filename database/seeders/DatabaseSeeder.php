@@ -117,6 +117,9 @@ class DatabaseSeeder extends Seeder
         $fsIuran = FundSource::create(['code' => 'FS-02', 'name' => 'Iuran Anggota DPD', 'type' => 'member_contribution', 'is_active' => true]);
         $fsCsr = FundSource::create(['code' => 'FS-03', 'name' => 'Hibah CSR Mitra', 'type' => 'donation', 'is_active' => true]);
 
+        // Call RoleSeeder first
+        $this->call(RoleSeeder::class);
+
         // 6. Seed Test Users (all mapped to DPD Jawa Timur for validation demo, except Super Admin)
         $usersData = [
             [
@@ -155,7 +158,9 @@ class DatabaseSeeder extends Seeder
 
         $userModels = [];
         foreach ($usersData as $ud) {
-            $userModels[$ud['role']] = User::create($ud);
+            $user = User::create($ud);
+            $user->assignRole($ud['role']);
+            $userModels[$ud['role']] = $user;
         }
 
         // 7. Seed Journals (Exactly Matching Hero Card Mockup metrics for DPD Jawa Timur)

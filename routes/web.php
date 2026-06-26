@@ -31,6 +31,16 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    // User & Role Management Routes
+    Route::resource('users', App\Http\Controllers\UserController::class);
+    Route::resource('roles', App\Http\Controllers\RoleController::class);
+
+    // Audit Trail Route
+    Route::get('/audit-logs', [App\Http\Controllers\AuditController::class, 'index'])->name('audit.index');
+
+    // Asset Management Routes
+    Route::resource('assets', App\Http\Controllers\AssetController::class);
+
     // Transaksi Kas Web Routes
     Route::get('/transactions', [TransactionWebController::class, 'index'])->name('transactions.index');
     Route::post('/transactions/cash-in', [TransactionWebController::class, 'storeCashIn'])->name('transactions.cash-in');

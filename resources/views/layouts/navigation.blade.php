@@ -27,6 +27,18 @@
                     <x-nav-link :href="route('settings.coa.index')" :active="request()->routeIs('settings.coa.index')">
                         {{ __('Master COA') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('assets.index')" :active="request()->routeIs('assets.*')">
+                        {{ __('Aset') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')">
+                        {{ __('Pengguna') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('roles.index')" :active="request()->routeIs('roles.*')">
+                        {{ __('Role & Hak Akses') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('audit.index')" :active="request()->routeIs('audit.index')">
+                        {{ __('Audit Trail') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -93,6 +105,18 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('settings.coa.index')" :active="request()->routeIs('settings.coa.index')">
                 {{ __('Master COA') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('assets.index')" :active="request()->routeIs('assets.*')">
+                {{ __('Aset') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')">
+                {{ __('Pengguna') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('roles.index')" :active="request()->routeIs('roles.*')">
+                {{ __('Role & Hak Akses') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('audit.index')" :active="request()->routeIs('audit.index')">
+                {{ __('Audit Trail') }}
             </x-responsive-nav-link>
         </div>
 

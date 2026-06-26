@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Builder;
+use OwenIt\Auditing\Contracts\Auditable;
 
 /**
  * Journal Model
@@ -48,9 +49,9 @@ use Illuminate\Database\Eloquent\Builder;
  * @property-read float $total_credit  Computed sum of all detail credit amounts.
  * @property-read bool  $is_balanced   Whether total debits equal total credits.
  */
-class Journal extends Model
+class Journal extends Model implements Auditable
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, \OwenIt\Auditing\Auditable;
 
     /**
      * The table associated with the model.
