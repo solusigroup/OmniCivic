@@ -1,0 +1,15 @@
+---
+deployment:
+  tasks:
+    # Tentukan folder tujuan deployment di server hosting (sesuaikan jika document root Anda berbeda)
+    - export DEPLOYPATH=/home/simkopde/omnicivic.simkopdes.biz.id
+    
+    # Salin seluruh file (termasuk file tersembunyi seperti .htaccess) dari repository Git ke direktori web
+    - /bin/cp -a . $DEPLOYPATH
+    
+    # Pindah ke direktori web
+    - cd $DEPLOYPATH
+    
+    # Berikan akses eksekusi pada script deploy.sh dan jalankan
+    - chmod +x deploy.sh
+    - ./deploy.sh
