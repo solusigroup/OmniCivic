@@ -2,6 +2,11 @@
 
 echo "Memulai proses deployment OmniCivic..."
 
+# Tarik pembaruan terbaru dari repositori
+echo "Melakukan git pull..."
+git pull
+
+
 # Aktifkan mode pemeliharaan
 php artisan down || true
 
