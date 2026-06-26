@@ -306,6 +306,136 @@
         </div>
     </section>
 
+    <!-- Alur Otorisasi Section -->
+    <section id="alur" class="py-20 lg:py-28 bg-white dark:bg-slate-900 border-y border-slate-200/60 dark:border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-12">
+            <div class="max-w-3xl mx-auto space-y-4">
+                <h2 class="text-xs font-bold text-omni-primary dark:text-blue-400 uppercase tracking-widest">
+                    ALUR OTORISASI BERLAPIS
+                </h2>
+                <h3 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                    Sistem Kontrol Ganda untuk Integritas Data
+                </h3>
+                <p class="text-slate-600 dark:text-slate-400 font-medium">
+                    Proses verifikasi transaksi dirancang untuk meminimalisir kesalahan dan mencegah manipulasi data.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+                <!-- Connective Line -->
+                <div class="hidden md:block absolute top-1/2 left-[16.66%] right-[16.66%] h-0.5 bg-slate-200 dark:bg-slate-800 -translate-y-1/2 z-0"></div>
+
+                <!-- Step 1 -->
+                <div class="relative z-10 bg-slate-50 dark:bg-slate-800/50 p-8 rounded-3xl border border-slate-200/60 dark:border-slate-800 hover:border-omni-primary/50 transition-colors">
+                    <div class="w-16 h-16 mx-auto bg-white dark:bg-slate-900 rounded-full flex items-center justify-center text-2xl font-bold text-slate-900 dark:text-white shadow-sm border border-slate-200 dark:border-slate-700 mb-6">
+                        1
+                    </div>
+                    <h4 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Input & Draft</h4>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 font-medium">Operator cabang mencatat transaksi ke dalam draf jurnal awal.</p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="relative z-10 bg-slate-50 dark:bg-slate-800/50 p-8 rounded-3xl border border-slate-200/60 dark:border-slate-800 hover:border-omni-pending/50 transition-colors">
+                    <div class="w-16 h-16 mx-auto bg-omni-pending/10 dark:bg-omni-pending/5 rounded-full flex items-center justify-center text-omni-pending shadow-sm border border-omni-pending/20 mb-6">
+                        <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                        </svg>
+                    </div>
+                    <h4 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Review Bendahara</h4>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 font-medium">Bendahara memverifikasi kesesuaian dokumen dengan bukti fisik (Status: Reviewed).</p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="relative z-10 bg-slate-50 dark:bg-slate-800/50 p-8 rounded-3xl border border-slate-200/60 dark:border-slate-800 hover:border-omni-success/50 transition-colors">
+                    <div class="w-16 h-16 mx-auto bg-omni-success/10 dark:bg-omni-success/5 rounded-full flex items-center justify-center text-omni-success shadow-sm border border-omni-success/20 mb-6">
+                        <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <h4 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Approval Ketua</h4>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 font-medium">Ketua mengesahkan transaksi sehingga laporan terekap otomatis (Status: Approved).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Regulasi Section -->
+    <section id="regulasi" class="py-20 lg:py-28 bg-gradient-to-b from-omni-bg to-white dark:from-slate-950 dark:to-slate-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/2 space-y-6">
+                    <h2 class="text-xs font-bold text-omni-success uppercase tracking-widest">
+                        KEPATUHAN STANDAR AKUNTANSI
+                    </h2>
+                    <h3 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                        Disusun Sesuai Regulasi KPU & ISAK 35
+                    </h3>
+                    <p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
+                        OmniCivic memastikan seluruh alur pelaporan, tata kelola akun (Chart of Accounts), dan konsolidasi dana disesuaikan dengan standar akuntansi nirlaba dan regulasi pengawasan partai politik yang berlaku.
+                    </p>
+                    <ul class="space-y-4 pt-4">
+                        <li class="flex items-start gap-3">
+                            <svg class="w-6 h-6 text-omni-success flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span class="text-slate-700 dark:text-slate-300 font-medium">Format laporan penerimaan & pengeluaran dana kampanye yang tervalidasi.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-6 h-6 text-omni-success flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span class="text-slate-700 dark:text-slate-300 font-medium">Pemisahan sumber dana (Sumbangan Mengikat vs Tidak Mengikat).</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-6 h-6 text-omni-success flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span class="text-slate-700 dark:text-slate-300 font-medium">Jejak audit (audit trail) permanen untuk setiap pengubahan data finansial.</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="md:w-1/2 w-full relative">
+                    <div class="absolute inset-0 bg-omni-success/20 blur-3xl rounded-full -z-10"></div>
+                    <div class="bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 rounded-3xl p-8 shadow-2xl">
+                        <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-4 mb-4">
+                            <span class="font-bold text-slate-800 dark:text-slate-200">Indikator Kepatuhan</span>
+                            <span class="text-sm font-bold text-omni-success">100% Valid</span>
+                        </div>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between text-xs mb-1">
+                                    <span class="text-slate-600 dark:text-slate-400 font-medium">Kesesuaian COA ISAK 35</span>
+                                    <span class="text-slate-800 dark:text-slate-200 font-bold">Terpenuhi</span>
+                                </div>
+                                <div class="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
+                                    <div class="bg-omni-success h-full" style="width: 100%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs mb-1">
+                                    <span class="text-slate-600 dark:text-slate-400 font-medium">Dual-Gate Authorization</span>
+                                    <span class="text-slate-800 dark:text-slate-200 font-bold">Terpenuhi</span>
+                                </div>
+                                <div class="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
+                                    <div class="bg-omni-success h-full" style="width: 100%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs mb-1">
+                                    <span class="text-slate-600 dark:text-slate-400 font-medium">Audit Trail System</span>
+                                    <span class="text-slate-800 dark:text-slate-200 font-bold">Terpenuhi</span>
+                                </div>
+                                <div class="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
+                                    <div class="bg-omni-success h-full" style="width: 100%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     <!-- Compliant Footer -->
     <footer class="bg-slate-900 dark:bg-slate-950 text-slate-400 py-12 border-t border-slate-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
@@ -322,9 +452,17 @@
                 </div>
 
                 <!-- Copyright -->
-                <p class="text-xs font-medium">
-                    &copy; 2026 OmniCivic. Hak Cipta Dilindungi Undang-Undang.
-                </p>
+                <div class="text-xs font-medium space-y-1.5 md:text-right">
+                    <p>
+                        &copy; 2026 OmniCivic. Hak Cipta Dilindungi Undang-Undang.
+                    </p>
+                    <p class="text-[10px] text-slate-500">
+                        Dikembangkan oleh <span class="font-bold text-slate-400">Kurniawan</span> (System Analyst).
+                    </p>
+                    <p class="text-[10px] text-slate-500">
+                        OmniCivic adalah produk dari <a href="https://simpleakunting.id" target="_blank" rel="noopener noreferrer" class="text-omni-primary dark:text-blue-400 hover:underline font-bold transition-colors">SimpleAkunting.id</a>.
+                    </p>
+                </div>
             </div>
 
             <div class="border-t border-slate-800/80 pt-6 text-center">
