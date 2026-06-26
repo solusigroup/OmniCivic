@@ -22,61 +22,69 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // 1. Seed Branches
-        $dpp = Branch::create([
-            'name' => 'Dewan Pimpinan Pusat (DPP)',
-            'code' => 'DPP-PUSAT',
-            'tier' => 'dpp',
-            'parent_id' => null,
-            'identity_settings' => [
-                'party_name' => 'Partai OmniCivic',
-                'branch_display_name' => 'Dewan Pimpinan Pusat (DPP)',
-                'address' => 'Jl. Kebangsaan No. 1, Jakarta Pusat',
-                'phone' => '021-5551234',
-                'email' => 'dpp@omnicivic.id',
+        $dpp = Branch::firstOrCreate(
+            ['code' => 'DPP-PUSAT'],
+            [
+                'name' => 'Dewan Pimpinan Pusat (DPP)',
+                'tier' => 'dpp',
+                'parent_id' => null,
+                'identity_settings' => [
+                    'party_name' => 'Partai OmniCivic',
+                    'branch_display_name' => 'Dewan Pimpinan Pusat (DPP)',
+                    'address' => 'Jl. Kebangsaan No. 1, Jakarta Pusat',
+                    'phone' => '021-5551234',
+                    'email' => 'dpp@omnicivic.id',
+                ]
             ]
-        ]);
+        );
 
-        $dpdJatim = Branch::create([
-            'name' => 'DPD Jawa Timur',
-            'code' => 'DPD-JATIM',
-            'tier' => 'dpd',
-            'parent_id' => $dpp->id,
-            'identity_settings' => [
-                'party_name' => 'Partai OmniCivic',
-                'branch_display_name' => 'Dewan Pimpinan Daerah (DPD) Jawa Timur',
-                'address' => 'Jl. Pemuda No. 45, Surabaya',
-                'phone' => '031-7778888',
-                'email' => 'jatim@omnicivic.id',
+        $dpdJatim = Branch::firstOrCreate(
+            ['code' => 'DPD-JATIM'],
+            [
+                'name' => 'DPD Jawa Timur',
+                'tier' => 'dpd',
+                'parent_id' => $dpp->id,
+                'identity_settings' => [
+                    'party_name' => 'Partai OmniCivic',
+                    'branch_display_name' => 'Dewan Pimpinan Daerah (DPD) Jawa Timur',
+                    'address' => 'Jl. Pemuda No. 45, Surabaya',
+                    'phone' => '031-7778888',
+                    'email' => 'jatim@omnicivic.id',
+                ]
             ]
-        ]);
+        );
 
-        $dpcSurabaya = Branch::create([
-            'name' => 'DPC Kota Surabaya',
-            'code' => 'DPC-SURABAYA',
-            'tier' => 'dpc',
-            'parent_id' => $dpdJatim->id,
-            'identity_settings' => [
-                'party_name' => 'Partai OmniCivic',
-                'branch_display_name' => 'Dewan Pimpinan Cabang (DPC) Kota Surabaya',
-                'address' => 'Jl. Basuki Rahmat No. 12, Surabaya',
-                'phone' => '031-6665555',
-                'email' => 'surabaya@omnicivic.id',
+        $dpcSurabaya = Branch::firstOrCreate(
+            ['code' => 'DPC-SURABAYA'],
+            [
+                'name' => 'DPC Kota Surabaya',
+                'tier' => 'dpc',
+                'parent_id' => $dpdJatim->id,
+                'identity_settings' => [
+                    'party_name' => 'Partai OmniCivic',
+                    'branch_display_name' => 'Dewan Pimpinan Cabang (DPC) Kota Surabaya',
+                    'address' => 'Jl. Basuki Rahmat No. 12, Surabaya',
+                    'phone' => '031-6665555',
+                    'email' => 'surabaya@omnicivic.id',
+                ]
             ]
-        ]);
+        );
 
-        $pacGenteng = Branch::create([
-            'name' => 'PAC Kec. Genteng',
-            'code' => 'PAC-GENTENG',
-            'tier' => 'pac',
-            'parent_id' => $dpcSurabaya->id,
-            'identity_settings' => [
-                'party_name' => 'Partai OmniCivic',
-                'branch_display_name' => 'Pimpinan Anak Cabang (PAC) Kecamatan Genteng',
-                'address' => 'Jl. Genteng Kali No. 8, Surabaya',
-                'phone' => '031-4443333',
-                'email' => 'genteng@omnicivic.id',
+        $pacGenteng = Branch::firstOrCreate(
+            ['code' => 'PAC-GENTENG'],
+            [
+                'name' => 'PAC Kec. Genteng',
+                'tier' => 'pac',
+                'parent_id' => $dpcSurabaya->id,
+                'identity_settings' => [
+                    'party_name' => 'Partai OmniCivic',
+                    'branch_display_name' => 'Pimpinan Anak Cabang (PAC) Kecamatan Genteng',
+                    'address' => 'Jl. Genteng Kali No. 8, Surabaya',
+                    'phone' => '031-4443333',
+                    'email' => 'genteng@omnicivic.id',
+                ]
             ]
-        ]);
+        );
 
         // 2. Seed Chart of Accounts
         $coas = [
@@ -101,21 +109,21 @@ class DatabaseSeeder extends Seeder
 
         $coaModels = [];
         foreach ($coas as $coa) {
-            $coaModels[$coa['code']] = ChartOfAccount::create($coa);
+            $coaModels[$coa['code']] = ChartOfAccount::firstOrCreate(['code' => $coa['code']], $coa);
         }
 
         // 3. Seed Programs
-        $progBaksos = Program::create(['code' => 'P-01', 'name' => 'Bakti Sosial Ramadhan', 'is_active' => true]);
-        $progKampanye = Program::create(['code' => 'P-02', 'name' => 'Kampanye Pemilu', 'is_active' => true]);
+        $progBaksos = Program::firstOrCreate(['code' => 'P-01'], ['name' => 'Bakti Sosial Ramadhan', 'is_active' => true]);
+        $progKampanye = Program::firstOrCreate(['code' => 'P-02'], ['name' => 'Kampanye Pemilu', 'is_active' => true]);
 
         // 4. Seed Divisions
-        $divYouth = Division::create(['code' => 'D-01', 'name' => 'Divisi Pemuda & Olahraga', 'is_active' => true]);
-        $divHumas = Division::create(['code' => 'D-02', 'name' => 'Divisi Hubungan Masyarakat', 'is_active' => true]);
+        $divYouth = Division::firstOrCreate(['code' => 'D-01'], ['name' => 'Divisi Pemuda & Olahraga', 'is_active' => true]);
+        $divHumas = Division::firstOrCreate(['code' => 'D-02'], ['name' => 'Divisi Hubungan Masyarakat', 'is_active' => true]);
 
         // 5. Seed Fund Sources
-        $fsApbd = FundSource::create(['code' => 'FS-01', 'name' => 'APBD Provinsi Jawa Timur', 'type' => 'government', 'is_active' => true]);
-        $fsIuran = FundSource::create(['code' => 'FS-02', 'name' => 'Iuran Anggota DPD', 'type' => 'member_contribution', 'is_active' => true]);
-        $fsCsr = FundSource::create(['code' => 'FS-03', 'name' => 'Hibah CSR Mitra', 'type' => 'donation', 'is_active' => true]);
+        $fsApbd = FundSource::firstOrCreate(['code' => 'FS-01'], ['name' => 'APBD Provinsi Jawa Timur', 'type' => 'government', 'is_active' => true]);
+        $fsIuran = FundSource::firstOrCreate(['code' => 'FS-02'], ['name' => 'Iuran Anggota DPD', 'type' => 'member_contribution', 'is_active' => true]);
+        $fsCsr = FundSource::firstOrCreate(['code' => 'FS-03'], ['name' => 'Hibah CSR Mitra', 'type' => 'donation', 'is_active' => true]);
 
         // Call RoleSeeder first
         $this->call(RoleSeeder::class);
@@ -158,8 +166,10 @@ class DatabaseSeeder extends Seeder
 
         $userModels = [];
         foreach ($usersData as $ud) {
-            $user = User::create($ud);
-            $user->assignRole($ud['role']);
+            $user = User::firstOrCreate(['email' => $ud['email']], $ud);
+            if (!$user->hasRole($ud['role'])) {
+                $user->assignRole($ud['role']);
+            }
             $userModels[$ud['role']] = $user;
         }
 
@@ -169,119 +179,159 @@ class DatabaseSeeder extends Seeder
         // Persetujuan Pending: 1 Jurnal Pending (Draft/Reviewed)
         
         // Jurnal 1: Kas Masuk Bantuan APBD (Approved) - Rp 1.500.000.000
-        $j1 = Journal::create([
-            'branch_id' => $dpdJatim->id,
-            'transaction_type' => 'cash_in',
-            'transaction_date' => Carbon::now()->subDays(10),
-            'reference_number' => 'CI-001',
-            'description' => 'Penerimaan Bantuan Keuangan Partai Politik APBD Jatim Tahap I',
-            'status' => 'approved',
-            'created_by' => $userModels['staff']->id,
-            'reviewed_by' => $userModels['bendahara']->id,
-            'approved_by' => $userModels['ketua']->id,
-            'reviewed_at' => Carbon::now()->subDays(9),
-            'approved_at' => Carbon::now()->subDays(8),
-        ]);
+        $j1 = Journal::firstOrCreate(
+            ['reference_number' => 'CI-001'],
+            [
+                'branch_id' => $dpdJatim->id,
+                'transaction_type' => 'cash_in',
+                'transaction_date' => Carbon::now()->subDays(10),
+                'description' => 'Penerimaan Bantuan Keuangan Partai Politik APBD Jatim Tahap I',
+                'status' => 'approved',
+                'created_by' => $userModels['staff']->id,
+                'reviewed_by' => $userModels['bendahara']->id,
+                'approved_by' => $userModels['ketua']->id,
+                'reviewed_at' => Carbon::now()->subDays(9),
+                'approved_at' => Carbon::now()->subDays(8),
+            ]
+        );
         
-        JournalDetail::create([
-            'journal_id' => $j1->id,
-            'account_id' => $coaModels['102']->id, // Bank Jatim
-            'debit' => 1500000000.00,
-            'credit' => 0.00,
-            'fund_source_id' => $fsApbd->id,
-            'division_id' => $divHumas->id,
-        ]);
-        JournalDetail::create([
-            'journal_id' => $j1->id,
-            'account_id' => $coaModels['402']->id, // Bantuan Keuangan APBD/APBN
-            'debit' => 0.00,
-            'credit' => 1500000000.00,
-            'fund_source_id' => $fsApbd->id,
-            'division_id' => $divHumas->id,
-        ]);
+        JournalDetail::firstOrCreate(
+            [
+                'journal_id' => $j1->id,
+                'account_id' => $coaModels['102']->id, // Bank Jatim
+            ],
+            [
+                'debit' => 1500000000.00,
+                'credit' => 0.00,
+                'fund_source_id' => $fsApbd->id,
+                'division_id' => $divHumas->id,
+            ]
+        );
+        JournalDetail::firstOrCreate(
+            [
+                'journal_id' => $j1->id,
+                'account_id' => $coaModels['402']->id, // Bantuan Keuangan APBD/APBN
+            ],
+            [
+                'debit' => 0.00,
+                'credit' => 1500000000.00,
+                'fund_source_id' => $fsApbd->id,
+                'division_id' => $divHumas->id,
+            ]
+        );
 
         // Jurnal 2: Kas Masuk Sumbangan Anggota (Approved) - Rp 3.320.000.000
-        $j2 = Journal::create([
-            'branch_id' => $dpdJatim->id,
-            'transaction_type' => 'cash_in',
-            'transaction_date' => Carbon::now()->subDays(5),
-            'reference_number' => 'CI-002',
-            'description' => 'Penerimaan Iuran dan Sumbangan Anggota DPD Jatim',
-            'status' => 'approved',
-            'created_by' => $userModels['staff']->id,
-            'reviewed_by' => $userModels['bendahara']->id,
-            'approved_by' => $userModels['ketua']->id,
-            'reviewed_at' => Carbon::now()->subDays(4),
-            'approved_at' => Carbon::now()->subDays(3),
-        ]);
+        $j2 = Journal::firstOrCreate(
+            ['reference_number' => 'CI-002'],
+            [
+                'branch_id' => $dpdJatim->id,
+                'transaction_type' => 'cash_in',
+                'transaction_date' => Carbon::now()->subDays(5),
+                'description' => 'Penerimaan Iuran dan Sumbangan Anggota DPD Jatim',
+                'status' => 'approved',
+                'created_by' => $userModels['staff']->id,
+                'reviewed_by' => $userModels['bendahara']->id,
+                'approved_by' => $userModels['ketua']->id,
+                'reviewed_at' => Carbon::now()->subDays(4),
+                'approved_at' => Carbon::now()->subDays(3),
+            ]
+        );
 
-        JournalDetail::create([
-            'journal_id' => $j2->id,
-            'account_id' => $coaModels['101']->id, // Kas Utama
-            'debit' => 3320000000.00,
-            'credit' => 0.00,
-            'fund_source_id' => $fsIuran->id,
-        ]);
-        JournalDetail::create([
-            'journal_id' => $j2->id,
-            'account_id' => $coaModels['401']->id, // Sumbangan Anggota
-            'debit' => 0.00,
-            'credit' => 3320000000.00,
-            'fund_source_id' => $fsIuran->id,
-        ]);
+        JournalDetail::firstOrCreate(
+            [
+                'journal_id' => $j2->id,
+                'account_id' => $coaModels['101']->id, // Kas Utama
+            ],
+            [
+                'debit' => 3320000000.00,
+                'credit' => 0.00,
+                'fund_source_id' => $fsIuran->id,
+            ]
+        );
+        JournalDetail::firstOrCreate(
+            [
+                'journal_id' => $j2->id,
+                'account_id' => $coaModels['401']->id, // Sumbangan Anggota
+            ],
+            [
+                'debit' => 0.00,
+                'credit' => 3320000000.00,
+                'fund_source_id' => $fsIuran->id,
+            ]
+        );
 
         // Jurnal 3: Kas Keluar Operasional (Reviewed / Pending Approval)
-        $j3 = Journal::create([
-            'branch_id' => $dpdJatim->id,
-            'transaction_type' => 'cash_out',
-            'transaction_date' => Carbon::now()->subDays(2),
-            'reference_number' => 'CO-001',
-            'description' => 'Pengeluaran Pembayaran Gaji Staf Kantor DPD',
-            'status' => 'reviewed',
-            'created_by' => $userModels['staff']->id,
-            'reviewed_by' => $userModels['bendahara']->id,
-            'reviewed_at' => Carbon::now()->subDay(),
-        ]);
+        $j3 = Journal::firstOrCreate(
+            ['reference_number' => 'CO-001'],
+            [
+                'branch_id' => $dpdJatim->id,
+                'transaction_type' => 'cash_out',
+                'transaction_date' => Carbon::now()->subDays(2),
+                'description' => 'Pengeluaran Pembayaran Gaji Staf Kantor DPD',
+                'status' => 'reviewed',
+                'created_by' => $userModels['staff']->id,
+                'reviewed_by' => $userModels['bendahara']->id,
+                'reviewed_at' => Carbon::now()->subDay(),
+            ]
+        );
 
-        JournalDetail::create([
-            'journal_id' => $j3->id,
-            'account_id' => $coaModels['501']->id, // Beban Gaji
-            'debit' => 50000000.00,
-            'credit' => 0.00,
-        ]);
-        JournalDetail::create([
-            'journal_id' => $j3->id,
-            'account_id' => $coaModels['101']->id, // Kas Utama
-            'debit' => 0.00,
-            'credit' => 50000000.00,
-        ]);
+        JournalDetail::firstOrCreate(
+            [
+                'journal_id' => $j3->id,
+                'account_id' => $coaModels['501']->id, // Beban Gaji
+            ],
+            [
+                'debit' => 50000000.00,
+                'credit' => 0.00,
+            ]
+        );
+        JournalDetail::firstOrCreate(
+            [
+                'journal_id' => $j3->id,
+                'account_id' => $coaModels['101']->id, // Kas Utama
+            ],
+            [
+                'debit' => 0.00,
+                'credit' => 50000000.00,
+            ]
+        );
 
         // Jurnal 4: Kas Keluar Baksos (Draft / Pending Review)
-        $j4 = Journal::create([
-            'branch_id' => $dpdJatim->id,
-            'transaction_type' => 'cash_out',
-            'transaction_date' => Carbon::now()->subDay(),
-            'reference_number' => 'CO-002',
-            'description' => 'Pengeluaran Draf Dana Penunjang Baksos Ramadhan 1447H',
-            'status' => 'draft',
-            'created_by' => $userModels['staff']->id,
-        ]);
+        $j4 = Journal::firstOrCreate(
+            ['reference_number' => 'CO-002'],
+            [
+                'branch_id' => $dpdJatim->id,
+                'transaction_type' => 'cash_out',
+                'transaction_date' => Carbon::now()->subDay(),
+                'description' => 'Pengeluaran Draf Dana Penunjang Baksos Ramadhan 1447H',
+                'status' => 'draft',
+                'created_by' => $userModels['staff']->id,
+            ]
+        );
 
-        JournalDetail::create([
-            'journal_id' => $j4->id,
-            'account_id' => $coaModels['503']->id, // Beban Baksos
-            'debit' => 20000000.00,
-            'credit' => 0.00,
-            'program_id' => $progBaksos->id,
-            'division_id' => $divYouth->id,
-        ]);
-        JournalDetail::create([
-            'journal_id' => $j4->id,
-            'account_id' => $coaModels['101']->id, // Kas Utama
-            'debit' => 0.00,
-            'credit' => 20000000.00,
-            'program_id' => $progBaksos->id,
-            'division_id' => $divYouth->id,
-        ]);
+        JournalDetail::firstOrCreate(
+            [
+                'journal_id' => $j4->id,
+                'account_id' => $coaModels['503']->id, // Beban Baksos
+            ],
+            [
+                'debit' => 20000000.00,
+                'credit' => 0.00,
+                'program_id' => $progBaksos->id,
+                'division_id' => $divYouth->id,
+            ]
+        );
+        JournalDetail::firstOrCreate(
+            [
+                'journal_id' => $j4->id,
+                'account_id' => $coaModels['101']->id, // Kas Utama
+            ],
+            [
+                'debit' => 0.00,
+                'credit' => 20000000.00,
+                'program_id' => $progBaksos->id,
+                'division_id' => $divYouth->id,
+            ]
+        );
     }
 }
