@@ -143,7 +143,7 @@
                                 <!-- Net Cash -->
                                 <tr class="border-t-4 border-double border-slate-900 dark:border-slate-100 bg-slate-100/50 dark:bg-slate-850/50">
                                     <td class="py-4 px-4 text-sm font-extrabold text-slate-900 dark:text-white uppercase tracking-wider">Kenaikan (Penurunan) Neto Kas & Bank</td>
-                                    <td class="py-4 px-4 text-right text-sm font-black @if($cashFlowData['netCash'] >= 0) text-emerald-600 @else text-rose-600 @endif">
+                                    <td class="py-4 px-4 text-right text-sm font-black @if($cashFlowData['netCash'] >= 0) text-emerald-600 dark:text-emerald-400 @else text-rose-600 dark:text-rose-400 @endif">
                                         Rp {{ number_format($cashFlowData['netCash'], 0, ',', '.') }}
                                     </td>
                                 </tr>
@@ -224,7 +224,7 @@
                                 <!-- Net Change in Net Assets -->
                                 <tr class="border-t-4 border-double border-slate-900 dark:border-slate-100 bg-slate-100/50 dark:bg-slate-850/50">
                                     <td class="py-4 px-4 text-sm font-extrabold text-slate-900 dark:text-white uppercase tracking-wider">Perubahan Saldo Neto Aset Neto (Surplus/Defisit)</td>
-                                    <td class="py-4 px-4 text-right text-sm font-black @if($activityData['netChange'] >= 0) text-emerald-600 @else text-rose-600 @endif">
+                                    <td class="py-4 px-4 text-right text-sm font-black @if($activityData['netChange'] >= 0) text-emerald-600 dark:text-emerald-400 @else text-rose-600 dark:text-rose-400 @endif">
                                         Rp {{ number_format($activityData['netChange'], 0, ',', '.') }}
                                     </td>
                                 </tr>
@@ -312,7 +312,7 @@
                                             <!-- Surplus/Defisit Periode Berjalan -->
                                             <tr class="border-b border-slate-50 dark:border-slate-800/40 hover:bg-slate-50/50 dark:hover:bg-slate-850/10">
                                                 <td class="py-2.5 px-2 text-slate-700 dark:text-slate-300 font-medium">Surplus / (Defisit) Periode Berjalan</td>
-                                                <td class="py-2.5 px-2 text-right font-bold @if($currentSurplus >= 0) text-emerald-600 @else text-rose-600 @endif">
+                                                <td class="py-2.5 px-2 text-right font-bold @if($currentSurplus >= 0) text-emerald-600 dark:text-emerald-400 @else text-rose-600 dark:text-rose-400 @endif">
                                                     Rp {{ number_format($currentSurplus, 0, ',', '.') }}
                                                 </td>
                                             </tr>

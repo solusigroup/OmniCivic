@@ -15,6 +15,9 @@ export default {
                 sans: ['"Plus Jakarta Sans"', ...defaultTheme.fontFamily.sans],
             },
             colors: {
+                slate: {
+                    850: '#152033',
+                },
                 omni: {
                     dark: '#0F172A',
                     primary: '#1E3A8A',
