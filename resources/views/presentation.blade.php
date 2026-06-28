@@ -255,7 +255,7 @@
                             </p>
                             
                             <div class="d-flex flex-wrap justify-content-center gap-3">
-                                <a href="{{ route('register') }}" class="btn btn-omni-success btn-lg shadow-lg">
+                                <a href="{{ route('register') }}" class="btn btn-omni-success btn-lg rounded-pill shadow-lg">
                                     Coba Simulasi Sekarang
                                 </a>
                                 <a href="https://wa.me/62895399799777" class="btn btn-outline-light btn-lg rounded-pill px-4 fw-bold shadow-lg">

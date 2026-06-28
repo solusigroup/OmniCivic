@@ -22,7 +22,6 @@
         .btn-omni-success {
             background-color: #10b981 !important;
             color: #fff !important;
-            border-radius: 50px; /* Rounded pill style typical of Mobirise */
             padding: 12px 30px;
             font-weight: 700;
             border: none;
@@ -36,7 +35,6 @@
         .btn-omni-primary {
             background-color: #1e3a8a !important;
             color: #fff !important;
-            border-radius: 50px;
             padding: 12px 30px;
             font-weight: 700;
             border: none;
@@ -92,10 +90,10 @@
           </ul>
           <div class="d-flex gap-2">
             @auth
-                <a href="{{ url('/dashboard') }}" class="btn btn-omni-primary">Ke Dashboard</a>
+                <a href="{{ url('/dashboard') }}" class="btn btn-omni-primary rounded-pill">Ke Dashboard</a>
             @else
-                <a href="{{ route('login') }}" class="btn btn-link text-decoration-none text-dark fw-bold">Masuk</a>
-                <a href="{{ route('register') }}" class="btn btn-omni-primary">Mulai Simulasi</a>
+                <a href="{{ route('login') }}" class="btn btn-link text-decoration-none text-dark fw-bold rounded-pill">Masuk</a>
+                <a href="{{ route('register') }}" class="btn btn-omni-primary rounded-pill">Mulai Simulasi</a>
             @endauth
           </div>
         </div>

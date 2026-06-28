@@ -24,13 +24,13 @@
                     </p>
                     
                     <div class="d-flex flex-wrap justify-content-center justify-content-lg-start gap-3">
-                        <a href="{{ route('register') }}" class="btn btn-omni-primary btn-lg shadow-sm">
+                        <a href="{{ route('register') }}" class="btn btn-omni-primary btn-lg rounded-pill shadow-sm">
                             Mulai Simulasi Aplikasi
                         </a>
-                        <a href="{{ route('presentation') }}" target="_blank" class="btn btn-omni-success btn-lg shadow-sm">
+                        <a href="{{ route('presentation') }}" target="_blank" class="btn btn-omni-success btn-lg rounded-pill shadow-sm">
                             <i class="bi bi-projector-fill me-2"></i>Lihat Presentasi Interaktif
                         </a>
-                        <a href="#fitur" class="btn btn-light btn-lg border rounded-pill fw-bold px-4">
+                        <a href="#fitur" class="btn btn-light btn-lg rounded-pill border fw-bold px-4">
                             Pelajari Fitur
                         </a>
                     </div>
@@ -154,7 +154,7 @@
                 </div>
             </div>
 
-            <div class="row g-4">
+            <div class="row g-5">
                 <!-- Feature 1 -->
                 <div class="col-md-4">
                     <div class="card card-mobirise h-100">
@@ -220,7 +220,7 @@
                 </div>
             </div>
             
-            <div class="row g-4 position-relative">
+            <div class="row g-5 position-relative">
                 <!-- Connective Line for Desktop (Hidden on mobile) -->
                 <div class="d-none d-md-block position-absolute bg-light w-75" style="height: 4px; top: 50%; left: 12.5%; transform: translateY(-50%); z-index: 0;"></div>
 
