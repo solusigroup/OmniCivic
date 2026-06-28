@@ -1,926 +1,298 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Presentasi Interaktif OmniCivic - Sistem Akuntansi Parpol Modern</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        omni: {
-                            dark: '#0F172A',     // Deep Civic Blue
-                            primary: '#1E3A8A',  // Brand Blue
-                            success: '#10B981',  // Mint Emerald
-                            pending: '#F59E0B',  // Amber Gold
-                            bg: '#F8FAFC',       // Clean Light Grey
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=300;400;500;600;700;800&display=swap');
-        
-        .slide {
-            display: none;
-            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-            opacity: 0;
-            transform: scale(0.98);
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0F172A; /* Omni dark */
+            color: #f8fafc;
+            overflow-x: hidden;
         }
         
-        .slide.active {
-            display: flex;
-            opacity: 1;
-            transform: scale(1);
+        .bg-omni-dark { background-color: #0F172A; }
+        .text-omni-success { color: #10B981; }
+        .text-omni-primary { color: #1E3A8A; }
+        
+        /* Glowing background blobs */
+        .glow-blob {
+            position: absolute;
+            filter: blur(120px);
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .carousel-item {
+            height: 80vh;
+            transition: transform 0.6s ease-in-out, opacity 0.6s ease-in-out;
         }
 
-        /* Glowing background blobs for premium look */
-        .glow-blob {
-            filter: blur(120px);
-            opacity: 0.12;
-            pointer-events: none;
+        .slide-content {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        
+        .card-mobirise-dark {
+            background: rgba(30, 41, 59, 0.5); /* slate-800 with opacity */
+            border: 1px solid rgba(51, 65, 85, 0.6); /* slate-700 */
+            border-radius: 24px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .carousel-control-prev,
+        .carousel-control-next {
+            width: 5%;
+            opacity: 0.8;
+        }
+        
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            background-color: rgba(0,0,0,0.5);
+            border-radius: 50%;
+            padding: 1.5rem;
+            background-size: 50%;
+        }
+
+        .btn-omni-success {
+            background-color: #10B981;
+            color: #fff;
+            border-radius: 50px;
+            font-weight: 700;
+            border: none;
+            padding: 0.75rem 2rem;
+            transition: all 0.3s;
+        }
+        
+        .btn-omni-success:hover {
+            background-color: #059669;
+            transform: translateY(-2px);
         }
     </style>
 </head>
-<body class="bg-omni-dark text-slate-100 min-h-screen flex flex-col justify-between overflow-hidden relative selection:bg-omni-success selection:text-omni-dark">
+<body class="d-flex flex-column min-vh-100 position-relative">
 
-    <!-- Decorative Premium Ambient Backgrounds -->
-    <div class="absolute top-10 left-10 w-96 h-96 rounded-full bg-blue-600 glow-blob"></div>
-    <div class="absolute bottom-10 right-10 w-[500px] h-[500px] rounded-full bg-emerald-600 glow-blob"></div>
+    <!-- Decorative Blobs -->
+    <div class="glow-blob bg-primary rounded-circle" style="top: -10%; left: -5%; width: 500px; height: 500px;"></div>
+    <div class="glow-blob bg-success rounded-circle" style="bottom: -10%; right: -5%; width: 600px; height: 600px;"></div>
 
-    <!-- PRESENTATION HEADER -->
-    <header class="w-full px-8 py-5 flex items-center justify-between border-b border-slate-800 backdrop-blur-md bg-omni-dark/40 z-30">
-        <div class="flex items-center gap-3">
-            <svg class="w-8 h-8 text-omni-success" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2L2 7V17L12 22L22 17V7L12 2Z" stroke="#3B82F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M9 17V11" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M12 17V7" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M15 17V14" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <div class="flex flex-col">
-                <span class="text-base font-extrabold tracking-tight text-white leading-none">Omni<span class="text-omni-success">Civic</span></span>
-                <span class="text-[9px] font-bold text-slate-400 tracking-wider uppercase mt-0.5">Interactive Presentation Deck</span>
+    <!-- Header -->
+    <header class="py-3 px-4 border-bottom border-secondary border-opacity-25" style="background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(10px); z-index: 10;">
+        <div class="container-fluid d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center gap-2">
+                <i class="bi bi-shield-fill-check fs-3 text-omni-success"></i>
+                <div class="lh-1">
+                    <span class="fs-5 fw-bold text-white">Omni<span class="text-omni-success">Civic</span></span><br>
+                    <small class="text-secondary text-uppercase fw-bold" style="font-size: 0.65rem; letter-spacing: 1px;">Interactive Presentation Deck</small>
+                </div>
             </div>
-        </div>
-        
-        <!-- Live Slide Indicator -->
-        <div class="flex items-center gap-2 text-xs bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-full text-slate-400 font-bold">
-            SLIDE <span id="slideIndicatorNum" class="text-white">1</span> / <span id="slideIndicatorTotal">10</span>
+            <div>
+                <a href="{{ url('/') }}" class="btn btn-outline-light btn-sm rounded-pill px-3 fw-bold"><i class="bi bi-house-door me-1"></i>Kembali ke Beranda</a>
+            </div>
         </div>
     </header>
 
-    <!-- MAIN SLIDES CONTAINER (SWIPEABLE REGION) -->
-    <main id="slideContainer" class="flex-1 w-full max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-center z-10 py-4 relative">
-        
-        <!-- SLIDE 1: INTRO / COVER -->
-        <div class="slide active flex-col items-center text-center space-y-6 max-w-4xl">
-            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/10 text-omni-success border border-emerald-500/20">
-                🚀 Re-Inovasi Akuntabilitas Sektor Publik
-            </span>
-            <h1 class="text-4xl md:text-6xl font-black tracking-tight text-white leading-[1.1]">
-                Menghadirkan Transparansi Finansial <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">Partai Politik Modern</span>
-            </h1>
-            <p class="text-base md:text-lg text-slate-400 max-w-2xl leading-relaxed">
-                Platform SaaS Akuntansi Multidimensi Berbasis Otorisasi Bertingkat, siap menghadapi regulasi ketat KPU dan standar akuntansi non-laba nasional (ISAK 35).
-            </p>
-            <div class="pt-6 flex flex-col items-center gap-2">
-                <span class="text-xs text-slate-500 uppercase tracking-widest font-bold">Tekan tombol panah kanan ➔ atau usap layar untuk mulai</span>
-                <div class="flex gap-1.5 mt-2">
-                    <span class="w-2.5 h-2.5 rounded-full bg-omni-success animate-ping"></span>
-                    <span class="text-xs text-omni-success font-semibold">✨ Live Gemini AI Engine inside</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- SLIDE 2: THE PROBLEM -->
-        <div class="slide flex-col space-y-5 w-full">
-            <div class="text-left space-y-1">
-                <span class="text-xs font-bold text-omni-success uppercase tracking-wider">01. Tantangan Sektor</span>
-                <h2 class="text-2xl md:text-3xl font-extrabold text-white">Kompleksitas Keuangan Parpol</h2>
-                <p class="text-xs md:text-sm text-slate-400 max-w-xl">Mengapa aplikasi pembukuan akuntansi standar (konvensional) tidak sanggup melayani kebutuhan tata kelola partai politik?</p>
+    <!-- Main Presentation Carousel -->
+    <main class="flex-grow-1 position-relative">
+        <div id="presentationCarousel" class="carousel slide h-100" data-bs-ride="false" data-bs-touch="true">
+            
+            <div class="carousel-indicators mb-0" style="bottom: -30px;">
+                <button type="button" data-bs-target="#presentationCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#presentationCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#presentationCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                <button type="button" data-bs-target="#presentationCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-5 pt-2">
-                <div class="bg-slate-950 border border-slate-800/80 p-5 rounded-xl space-y-3">
-                    <div class="w-10 h-10 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400 text-lg">⚖️</div>
-                    <h3 class="text-base font-bold text-white">Kepatuhan Hukum Ketat</h3>
-                    <p class="text-xs text-slate-400 leading-relaxed">Parpol wajib tunduk pada kewajiban audit berkala oleh Kantor Akuntan Publik (KAP), KPU, serta BPK terkait penggunaan bantuan dana APBN/APBD.</p>
-                </div>
-                <div class="bg-slate-950 border border-slate-800/80 p-5 rounded-xl space-y-3">
-                    <div class="w-10 h-10 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400 text-lg">🌐</div>
-                    <h3 class="text-base font-bold text-white">Hierarki Kewilayahan</h3>
-                    <p class="text-xs text-slate-400 leading-relaxed">Skala organisasi parpol berjenjang (DPP, DPD, DPC, PAC). Sangat berisiko tinggi terjadi tumpang tindih saldo, duplikasi pencatatan, dan kekacauan laporan konsolidasi.</p>
-                </div>
-                <div class="bg-slate-950 border border-slate-800/80 p-5 rounded-xl space-y-3">
-                    <div class="w-10 h-10 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400 text-lg">👥</div>
-                    <h3 class="text-base font-bold text-white">Ketidakseimbangan Otoritas</h3>
-                    <p class="text-xs text-slate-400 leading-relaxed">Tanpa filter verifikasi pimpinan, input data staf akuntansi langsung merubah laporan keuangan secara sepihak, memicu kecurigaan manipulasi data oleh pihak internal.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- SLIDE 3: THE SOLUTION & KEY ADVANTAGES -->
-        <div class="slide flex-col space-y-5 w-full">
-            <div class="text-left space-y-1">
-                <span class="text-xs font-bold text-omni-success uppercase tracking-wider">02. Solusi Kami</span>
-                <h2 class="text-2xl md:text-3xl font-extrabold text-white">Memperkenalkan OmniCivic</h2>
-                <p class="text-xs md:text-sm text-slate-400 max-w-xl">Jawaban dari segala dimensi permasalahan akuntansi di organisasi kemasyarakatan dan publik.</p>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-6 pt-2 items-center">
-                <div class="space-y-4">
-                    <p class="text-sm text-slate-300 leading-relaxed">
-                        OmniCivic menghadirkan <strong class="text-white">platform SaaS cerdas</strong> yang membatasi entri transaksi hanya melalui pintu tunggal (Jurnal Kas & Bank) demi akurasi total, lalu memecah aliran kas tersebut menjadi laporan multidimensi yang dinamis secara otomatis.
-                    </p>
-                    <div class="grid grid-cols-2 gap-3">
-                        <div class="flex items-start gap-2">
-                            <span class="p-0.5 rounded bg-emerald-500/20 text-omni-success text-xs mt-0.5">✔</span>
-                            <span class="text-[11px] text-slate-400">Pencatatan kas-basis harian yang disederhanakan.</span>
-                        </div>
-                        <div class="flex items-start gap-2">
-                            <span class="p-0.5 rounded bg-emerald-500/20 text-omni-success text-xs mt-0.5">✔</span>
-                            <span class="text-[11px] text-slate-400">Pembatasan keamanan tinggi berbasis peran (RBAC).</span>
-                        </div>
-                        <div class="flex items-start gap-2">
-                            <span class="p-0.5 rounded bg-emerald-500/20 text-omni-success text-xs mt-0.5">✔</span>
-                            <span class="text-[11px] text-slate-400">Pencegah over-budget terintegrasi sistem.</span>
-                        </div>
-                        <div class="flex items-start gap-2">
-                            <span class="p-0.5 rounded bg-emerald-500/20 text-omni-success text-xs mt-0.5">✔</span>
-                            <span class="text-[11px] text-slate-400">Multi-tenant aman untuk isolasi data regional.</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Interactive Mini Mockup inside slide -->
-                <div class="bg-slate-950 border border-slate-800 p-5 rounded-xl space-y-3 relative overflow-hidden">
-                    <div class="absolute -right-10 -bottom-10 w-36 h-36 bg-emerald-500/5 rounded-full"></div>
-                    <span class="text-[9px] bg-slate-900 border border-slate-800 text-slate-400 px-2 py-1 rounded font-bold uppercase tracking-wider">Pilar Keunggulan OmniCivic</span>
-                    <ul class="space-y-2 pt-2">
-                        <li class="p-2 rounded-lg bg-slate-900/60 flex justify-between items-center text-xs">
-                            <span class="text-slate-400 font-medium">Akurasi Buku Besar Pembantu</span>
-                            <span class="text-omni-success font-bold">100% Cocok</span>
-                        </li>
-                        <li class="p-2 rounded-lg bg-slate-900/60 flex justify-between items-center text-xs">
-                            <span class="text-slate-400 font-medium">Kecepatan Konsolidasi Nasional</span>
-                            <span class="text-omni-success font-bold">&lt; 1 Detik</span>
-                        </li>
-                        <li class="p-2 rounded-lg bg-slate-900/60 flex justify-between items-center text-xs">
-                            <span class="text-slate-400 font-medium">Kepatuhan Standar ISAK 35</span>
-                            <span class="text-omni-success font-bold">Ya, Terpasang</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- SLIDE 4: THE DUAL-GATE APPROVAL WORKFLOW -->
-        <div class="slide flex-col space-y-4 w-full">
-            <div class="text-left space-y-1">
-                <span class="text-xs font-bold text-omni-success uppercase tracking-wider">03. Kontrol Internal</span>
-                <h2 class="text-2xl md:text-3xl font-extrabold text-white">Alur Otorisasi Ganda (Dual-Gate Approval)</h2>
-                <p class="text-xs text-slate-400">Simulasikan bagaimana sistem OmniCivic menjaga validitas data keuangan parpol agar terhindar dari manipulasi.</p>
-            </div>
-
-            <!-- INTERACTIVE STEPS WIDGET -->
-            <div class="bg-slate-950 border border-slate-800 p-5 rounded-xl space-y-5">
-                <!-- Step Navigation Headers -->
-                <div class="grid grid-cols-3 gap-2 text-center text-xs font-bold" id="stepHeaders">
-                    <div class="p-3 rounded-lg bg-omni-success text-slate-950 transition-all cursor-pointer shadow-md" onclick="setApprovalStep(1)">
-                        1. Entri Draft (Staff)
-                    </div>
-                    <div class="p-3 rounded-lg bg-slate-900 text-slate-400 transition-all cursor-pointer" onclick="setApprovalStep(2)">
-                        2. Verifikasi (Bendahara)
-                    </div>
-                    <div class="p-3 rounded-lg bg-slate-900 text-slate-400 transition-all cursor-pointer" onclick="setApprovalStep(3)">
-                        3. Sahkan (Ketua Partai)
-                    </div>
-                </div>
-
-                <!-- Step Description Details Box -->
-                <div class="bg-slate-900 border border-slate-800 p-4 rounded-lg min-h-[120px] flex flex-col justify-between" id="stepContentBox">
-                    <div class="space-y-1">
-                        <h4 class="text-xs font-bold text-white flex items-center gap-2">
-                            <span class="w-2.5 h-2.5 bg-blue-400 rounded-full animate-pulse"></span>
-                            Staf Akuntansi Menginput Rincian Jurnal
-                        </h4>
-                        <p class="text-xs text-slate-400 leading-relaxed">
-                            Semua transaksi pengeluaran atau sumbangan kas baru diinput oleh staf pembantu kas. Status transaksi dikunci sebagai <span class="text-slate-200 font-bold bg-slate-800 px-1.5 py-0.5 rounded">DRAFT</span>. Jurnal draf ini sama sekali tidak boleh memengaruhi Laporan Neraca utama agar data tidak terkontaminasi sebelum diperiksa fisik kuitansinya.
-                        </p>
-                    </div>
-                    <div class="text-[9px] text-slate-500 font-semibold uppercase tracking-wider mt-3">Klik pilihan step 2 atau 3 di atas untuk melihat kelanjutannya</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- SLIDE 5: DATA PIPELINE TO REPORTS -->
-        <div class="slide flex-col space-y-4 w-full">
-            <div class="text-left space-y-1">
-                <span class="text-xs font-bold text-omni-success uppercase tracking-wider">04. Alur Aliran Data</span>
-                <h2 class="text-2xl md:text-3xl font-extrabold text-white">Dari Input Kas Hingga Laporan Saji</h2>
-                <p class="text-xs text-slate-400">Bagaimana sebuah entri kas sederhana dipetakan menjadi akuntansi multidimensi tanpa repot.</p>
-            </div>
-
-            <!-- Pipeline Visual Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 pt-2">
-                <div class="bg-slate-950 border border-slate-800/60 p-4 rounded-xl relative">
-                    <span class="absolute top-2 right-2 text-xs font-extrabold text-slate-700">STEP 01</span>
-                    <h3 class="text-xs font-extrabold uppercase text-omni-success tracking-wider mb-2">Input Kas Tunggal</h3>
-                    <p class="text-[11px] text-slate-400 leading-relaxed">Bendahara menginput transaksi sederhana (Kas Masuk/Keluar) dan menyematkan tag dimensi (Program/Divisi/Sumber).</p>
-                </div>
+            <div class="carousel-inner h-100">
                 
-                <div class="bg-slate-950 border border-slate-800/60 p-4 rounded-xl relative">
-                    <span class="absolute top-2 right-2 text-xs font-extrabold text-slate-700">STEP 02</span>
-                    <h3 class="text-xs font-extrabold uppercase text-omni-pending tracking-wider mb-2">Auto Double Entry</h3>
-                    <p class="text-[11px] text-slate-400 leading-relaxed">Sistem Laravel menerjemahkan data kas secara otomatis menjadi pencatatan ganda (Double-Entry Debit & Kredit) yang seimbang.</p>
+                <!-- Slide 1: Intro -->
+                <div class="carousel-item active">
+                    <div class="slide-content text-center">
+                        <div style="max-width: 800px;">
+                            <span class="badge bg-success bg-opacity-10 text-success border border-success p-2 px-3 rounded-pill mb-4 text-uppercase fw-bold">
+                                🚀 Re-Inovasi Akuntabilitas Sektor Publik
+                            </span>
+                            <h1 class="display-4 fw-bolder text-white mb-4">
+                                Menghadirkan Transparansi Finansial <br>
+                                <span class="text-info">Partai Politik Modern</span>
+                            </h1>
+                            <p class="lead text-secondary mb-5">
+                                Platform SaaS Akuntansi Multidimensi Berbasis Otorisasi Bertingkat, siap menghadapi regulasi ketat KPU dan standar akuntansi non-laba nasional (ISAK 35).
+                            </p>
+                            <p class="small text-muted text-uppercase fw-bold tracking-widest mb-2">Geser atau tekan tombol panah untuk memulai presentasi</p>
+                            <div class="d-inline-flex gap-2">
+                                <button class="btn btn-omni-success rounded-circle p-3 shadow" onclick="document.querySelector('.carousel-control-next').click()">
+                                    <i class="bi bi-arrow-right fs-4"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="bg-slate-950 border border-slate-800/60 p-4 rounded-xl relative">
-                    <span class="absolute top-2 right-2 text-xs font-extrabold text-slate-700">STEP 03</span>
-                    <h3 class="text-xs font-extrabold uppercase text-blue-400 tracking-wider mb-2">Pintu Otorisasi</h3>
-                    <p class="text-[11px] text-slate-400 leading-relaxed">Jurnal ditinjau secara berjenjang. Sebelum status berubah menjadi 'Approved', data kas diisolasi dari Buku Besar Laporan Utama.</p>
+                <!-- Slide 2: The Problem -->
+                <div class="carousel-item">
+                    <div class="slide-content">
+                        <div class="w-100" style="max-width: 1000px;">
+                            <div class="mb-5">
+                                <span class="text-omni-success fw-bold text-uppercase small mb-2 d-block tracking-widest">01. Tantangan Sektor</span>
+                                <h2 class="display-6 fw-bold text-white mb-3">Kompleksitas Keuangan Parpol</h2>
+                                <p class="text-secondary">Mengapa aplikasi pembukuan akuntansi standar tidak sanggup melayani kebutuhan tata kelola partai politik?</p>
+                            </div>
+
+                            <div class="row g-4">
+                                <div class="col-md-4">
+                                    <div class="card-mobirise-dark h-100 text-start">
+                                        <div class="bg-danger bg-opacity-10 text-danger rounded-3 d-inline-flex align-items-center justify-content-center mb-3" style="width: 50px; height: 50px;">
+                                            <i class="bi bi-bank fs-4"></i>
+                                        </div>
+                                        <h5 class="text-white fw-bold mb-3">Kepatuhan Hukum Ketat</h5>
+                                        <p class="text-secondary small mb-0">Parpol wajib tunduk pada kewajiban audit berkala oleh KAP, KPU, serta BPK terkait penggunaan bantuan dana APBN/APBD.</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card-mobirise-dark h-100 text-start">
+                                        <div class="bg-danger bg-opacity-10 text-danger rounded-3 d-inline-flex align-items-center justify-content-center mb-3" style="width: 50px; height: 50px;">
+                                            <i class="bi bi-diagram-3 fs-4"></i>
+                                        </div>
+                                        <h5 class="text-white fw-bold mb-3">Hierarki Kewilayahan</h5>
+                                        <p class="text-secondary small mb-0">Skala organisasi parpol berjenjang. Sangat berisiko tinggi terjadi tumpang tindih saldo dan kekacauan laporan konsolidasi.</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card-mobirise-dark h-100 text-start">
+                                        <div class="bg-danger bg-opacity-10 text-danger rounded-3 d-inline-flex align-items-center justify-content-center mb-3" style="width: 50px; height: 50px;">
+                                            <i class="bi bi-person-x fs-4"></i>
+                                        </div>
+                                        <h5 class="text-white fw-bold mb-3">Ketidakseimbangan Otoritas</h5>
+                                        <p class="text-secondary small mb-0">Input data staf akuntansi langsung merubah laporan keuangan secara sepihak, memicu manipulasi data oleh pihak internal.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="bg-slate-950 border border-omni-success/30 p-4 rounded-xl relative bg-gradient-to-br from-slate-950 to-emerald-950/20">
-                    <span class="absolute top-2 right-2 text-xs font-extrabold text-omni-success/60">STEP 04</span>
-                    <h3 class="text-xs font-extrabold uppercase text-emerald-400 tracking-wider mb-2">Multi-Dimensi Laporan</h3>
-                    <p class="text-[11px] text-slate-400 leading-relaxed">Data approved langsung ter-compile menjadi Laporan Aktivitas ISAK 35, realisasi program, serta anggaran secara instan.</p>
+                <!-- Slide 3: The Solution -->
+                <div class="carousel-item">
+                    <div class="slide-content">
+                        <div class="w-100" style="max-width: 1000px;">
+                            <div class="mb-5">
+                                <span class="text-omni-success fw-bold text-uppercase small mb-2 d-block tracking-widest">02. Solusi Kami</span>
+                                <h2 class="display-6 fw-bold text-white mb-3">Memperkenalkan OmniCivic</h2>
+                                <p class="text-secondary">Jawaban dari segala dimensi permasalahan akuntansi di organisasi kemasyarakatan dan publik.</p>
+                            </div>
+
+                            <div class="row align-items-center g-5">
+                                <div class="col-lg-6">
+                                    <p class="lead text-light mb-4" style="font-size: 1.1rem;">
+                                        OmniCivic menghadirkan <strong>platform SaaS cerdas</strong> yang membatasi entri transaksi hanya melalui pintu tunggal (Jurnal Kas & Bank) demi akurasi total.
+                                    </p>
+                                    <ul class="list-unstyled">
+                                        <li class="mb-3 d-flex align-items-start gap-3">
+                                            <i class="bi bi-check-circle-fill text-omni-success fs-5"></i>
+                                            <span class="text-secondary">Pencatatan kas-basis harian yang disederhanakan.</span>
+                                        </li>
+                                        <li class="mb-3 d-flex align-items-start gap-3">
+                                            <i class="bi bi-check-circle-fill text-omni-success fs-5"></i>
+                                            <span class="text-secondary">Pembatasan keamanan tinggi berbasis peran (RBAC).</span>
+                                        </li>
+                                        <li class="mb-3 d-flex align-items-start gap-3">
+                                            <i class="bi bi-check-circle-fill text-omni-success fs-5"></i>
+                                            <span class="text-secondary">Multi-tenant aman untuk isolasi data regional.</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="card-mobirise-dark text-start position-relative overflow-hidden">
+                                        <div class="position-absolute bg-success opacity-25 rounded-circle blur-3xl" style="width: 200px; height: 200px; bottom: -50px; right: -50px; filter: blur(40px);"></div>
+                                        <span class="badge bg-dark border border-secondary mb-4 p-2 text-uppercase fw-bold">Pilar Keunggulan</span>
+                                        
+                                        <div class="d-flex justify-content-between align-items-center bg-dark bg-opacity-50 p-3 rounded-3 mb-2 border border-secondary border-opacity-25">
+                                            <span class="text-secondary small fw-medium">Akurasi Buku Besar Pembantu</span>
+                                            <span class="text-omni-success fw-bold small">100% Cocok</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center bg-dark bg-opacity-50 p-3 rounded-3 mb-2 border border-secondary border-opacity-25">
+                                            <span class="text-secondary small fw-medium">Kecepatan Konsolidasi</span>
+                                            <span class="text-omni-success fw-bold small">&lt; 1 Detik</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center bg-dark bg-opacity-50 p-3 rounded-3 border border-secondary border-opacity-25">
+                                            <span class="text-secondary small fw-medium">Kepatuhan Standar ISAK 35</span>
+                                            <span class="text-omni-success fw-bold small">Ya, Terpasang</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- Slide 4: Call to Action -->
+                <div class="carousel-item">
+                    <div class="slide-content text-center">
+                        <div style="max-width: 700px;">
+                            <i class="bi bi-building-check text-omni-success" style="font-size: 5rem;"></i>
+                            <h2 class="display-5 fw-bolder text-white mt-4 mb-4">
+                                Siap Memodernisasi Tata Kelola Organisasi Anda?
+                            </h2>
+                            <p class="text-secondary lead mb-5">
+                                Bergabunglah dengan OmniCivic untuk transparansi penuh, pelaporan yang mudah, dan audit yang bersih.
+                            </p>
+                            
+                            <div class="d-flex flex-wrap justify-content-center gap-3">
+                                <a href="{{ route('register') }}" class="btn btn-omni-success btn-lg shadow-lg">
+                                    Coba Simulasi Sekarang
+                                </a>
+                                <a href="https://wa.me/62895399799777" class="btn btn-outline-light btn-lg rounded-pill px-4 fw-bold shadow-lg">
+                                    <i class="bi bi-whatsapp me-2"></i>Hubungi Representatif
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
+
+            <!-- Carousel Controls -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#presentationCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon shadow-lg" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#presentationCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon shadow-lg" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
-
-        <!-- SLIDE 6: INTERACTIVE EXAMPLE REPORTS -->
-        <div class="slide flex-col space-y-3 w-full">
-            <div class="text-left space-y-0.5">
-                <span class="text-xs font-bold text-omni-success uppercase tracking-wider">05. Galeri Contoh Laporan</span>
-                <h2 class="text-2xl font-extrabold text-white">Rancangan Output Laporan Resmi OmniCivic</h2>
-                <p class="text-xs text-slate-400">Pilih jenis laporan di bawah ini untuk melihat contoh dokumen hasil cetak sistem:</p>
-            </div>
-
-            <!-- REPORT SIMULATOR BOX -->
-            <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl space-y-4">
-                <!-- Tabs Selector -->
-                <div class="flex flex-wrap gap-2 text-xs font-bold">
-                    <button onclick="switchDocReport('ISAK35')" id="tabRepISAK" class="px-3 py-1.5 rounded bg-omni-success text-slate-950 transition-all">Laporan Aktivitas ISAK 35</button>
-                    <button onclick="switchDocReport('REALISASI')" id="tabRepRealisasi" class="px-3 py-1.5 rounded bg-slate-900 text-slate-400 transition-all hover:text-white">Realisasi Program Kegiatan</button>
-                    <button onclick="switchDocReport('APBN')" id="tabRepAPBN" class="px-3 py-1.5 rounded bg-slate-900 text-slate-400 transition-all hover:text-white">Laporan Hibah Negara (APBN)</button>
-                </div>
-
-                <!-- Printable Doc Container Mockup -->
-                <div class="bg-white text-slate-900 p-5 rounded-lg max-h-[220px] overflow-y-auto font-serif shadow-inner text-[11px] space-y-3" id="reportDocumentViewer">
-                    <!-- Dynamic Document HTML goes here -->
-                </div>
-            </div>
-        </div>
-
-        <!-- SLIDE 7: ✨ GEMINI AI FINANCIAL AUDITOR & ADVISOR PLAYGROUND -->
-        <div class="slide flex-col space-y-3 w-full">
-            <div class="text-left space-y-0.5">
-                <span class="text-xs font-bold text-omni-success uppercase tracking-wider">06. Fitur Cerdas ✨</span>
-                <h2 class="text-2xl font-extrabold text-white">Asisten Audit Keuangan Cerdas Gemini AI</h2>
-                <p class="text-xs text-slate-400">Pilih sampel laporan bermasalah di bawah ini dan klik tombol untuk melakukan audit kepatuhan berbasis AI nyata!</p>
-            </div>
-
-            <!-- AI Playground Dashboard Container -->
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 w-full">
-                <!-- Case Selector & Input Code Area (Left) -->
-                <div class="lg:col-span-5 bg-slate-950 border border-slate-800 p-4 rounded-xl space-y-3 flex flex-col justify-between">
-                    <div>
-                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Pilih Contoh Kasus Transaksi / Laporan:</label>
-                        <select id="aiCaseSelector" onchange="loadAiCase()" class="w-full bg-slate-900 border border-slate-800 text-xs text-white rounded px-2.5 py-1.5 focus:outline-none focus:ring-1 focus:ring-omni-success">
-                            <option value="kasus_banpol_apbn">Pelanggaran Penggunaan Dana Banpol APBD/APBN</option>
-                            <option value="kasus_isak35">Format Laporan Menyimpang Dari Standar ISAK 35</option>
-                            <option value="kasus_overbudget">Evaluasi Defisit & Overbudget Anggaran Program Kerja</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Sunting Data Transaksi / Laporan Keuangan:</label>
-                        <textarea id="aiInputData" rows="4" class="w-full bg-slate-900 border border-slate-800 rounded p-2 text-[10px] text-slate-200 font-mono focus:outline-none focus:border-omni-success leading-relaxed"></textarea>
-                    </div>
-
-                    <!-- Execute Button -->
-                    <button onclick="runGeminiAnalysis()" id="btnRunAi" class="w-full bg-omni-success text-slate-950 font-bold py-2.5 rounded text-xs flex items-center justify-center gap-1.5 hover:bg-emerald-400 hover:shadow-lg transition">
-                        ✨ Analisis dengan Gemini AI
-                    </button>
-                </div>
-
-                <!-- AI Response / Feedback Area (Right) -->
-                <div class="lg:col-span-7 bg-slate-950 border border-slate-800 p-4 rounded-xl flex flex-col">
-                    <div class="flex items-center justify-between border-b border-slate-800 pb-2 mb-2">
-                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1">
-                            <span class="w-2 h-2 rounded-full bg-omni-success animate-pulse"></span>
-                            Hasil Pemeriksaan Auditor AI
-                        </span>
-                        <span class="text-[9px] bg-emerald-500/10 text-omni-success px-2 py-0.5 rounded font-extrabold uppercase">Gemini 2.5 Flash</span>
-                    </div>
-
-                    <!-- Response Viewer -->
-                    <div id="aiOutputViewer" class="text-xs text-slate-300 leading-relaxed overflow-y-auto max-h-[170px] space-y-2 pr-1">
-                        <div class="text-center text-slate-500 py-10">
-                            Silakan pilih kasus laporan di sebelah kiri lalu klik tombol <strong class="text-omni-success">✨ Analisis</strong> untuk memulai pemindaian AI secara langsung.
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- SLIDE 8: SECURITY & DATA ISOLATION -->
-        <div class="slide flex-col space-y-5 w-full">
-            <div class="text-left space-y-1">
-                <span class="text-xs font-bold text-omni-success uppercase tracking-wider">07. Keamanan & Privasi</span>
-                <h2 class="text-2xl md:text-3xl font-extrabold text-white">Isolasi Keamanan Antar Cabang</h2>
-                <p class="text-xs md:text-sm text-slate-400 max-w-xl">Bagaimana sistem multi-tenant menjamin data satu daerah tidak bocor ke daerah lain.</p>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-6 items-center pt-2">
-                <div class="space-y-4">
-                    <p class="text-xs md:text-sm text-slate-300 leading-relaxed">
-                        Sistem otorisasi data OmniCivic terintegrasi langsung dengan <strong class="text-white">ID Cabang Pengguna (branch_id)</strong> yang terdaftar. Begitu pengguna masuk, query database Laravel secara otomatis mengisolasi tabel dan draf jurnal.
-                    </p>
-                    <div class="p-4 rounded-lg bg-slate-900 border border-slate-800 space-y-2 text-xs">
-                        <div class="flex justify-between items-center">
-                            <span class="text-slate-400">Akses Pengurus DPC</span>
-                            <span class="text-red-400 font-bold">Hanya Cabang Sendiri</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span class="text-slate-400">Akses Pengurus DPD/DPW</span>
-                            <span class="text-omni-success font-bold">Seluruh Cabang di Provinsi</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span class="text-slate-400">Akses Pengurus DPP Pusat</span>
-                            <span class="text-blue-400 font-bold">Konsolidasi Nasional</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Interactive Flow Visual representation -->
-                <div class="p-5 rounded-xl bg-slate-950 border border-slate-800 space-y-3 text-center">
-                    <div class="text-[10px] text-slate-400 uppercase font-bold">Konsep Isolasi Data OmniCivic</div>
-                    <div class="flex flex-col items-center gap-1.5">
-                        <div class="bg-blue-900/40 text-blue-300 px-3 py-1.5 rounded border border-blue-500/30 text-xs font-bold w-full max-w-xs">
-                            DPP Pusat (Konsolidasi Nasional)
-                        </div>
-                        <div class="text-slate-600 text-xs">▲</div>
-                        <div class="bg-emerald-900/40 text-emerald-300 px-3 py-1.5 rounded border border-emerald-500/30 text-xs font-bold w-full max-w-xs">
-                            DPD Provinsi (Konsolidasi Wilayah)
-                        </div>
-                        <div class="text-slate-600 text-xs">▲</div>
-                        <div class="bg-slate-900 text-slate-400 px-3 py-1.5 rounded border border-slate-800 text-xs font-bold w-full max-w-xs">
-                            DPC Kab/Kota (Data Terkunci Cabang)
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- SLIDE 9: COMPLIANCE AND AUDIT READY -->
-        <div class="slide flex-col space-y-4 w-full">
-            <div class="text-left space-y-1">
-                <span class="text-xs font-bold text-omni-success uppercase tracking-wider">08. Kepatuhan Hukum</span>
-                <h2 class="text-2xl md:text-3xl font-extrabold text-white">Sistem Sesuai Regulasi Audit BPK & KAP</h2>
-                <p class="text-xs text-slate-400">Dirancang khusus selaras dengan peraturan perundang-undangan partai politik di Indonesia.</p>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-5 pt-2">
-                <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl space-y-2">
-                    <h3 class="text-sm font-bold text-omni-success flex items-center gap-1.5">
-                        <span class="w-2 h-2 rounded-full bg-omni-success"></span>
-                        Komparasi Audit Teruji
-                    </h3>
-                    <p class="text-xs text-slate-400 leading-relaxed">
-                        Sistem audit BPK memerlukan pemisahan ketat antara dana APBN/APBD dengan dana sumbangan swasta/mandiri. OmniCivic melacak secara rigid melalui pengelompokan akun dana terikat.
-                    </p>
-                </div>
-                <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl space-y-2">
-                    <h3 class="text-sm font-bold text-omni-success flex items-center gap-1.5">
-                        <span class="w-2 h-2 rounded-full bg-omni-success"></span>
-                        Format Laporan KPU (LPPDK)
-                    </h3>
-                    <p class="text-xs text-slate-400 leading-relaxed">
-                        Memudahkan pengurus menjelang pemilu untuk langsung mengekspor laporan penerimaan dan pengeluaran dana kampanye sesuai standar baku format KPU nasional.
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <!-- SLIDE 10: CALL TO ACTION WITH INTERACTIVE WHATSAPP ORDER FORM -->
-        <div class="slide flex-col space-y-6 w-full max-w-5xl">
-            <div class="grid md:grid-cols-12 gap-8 items-center text-left">
-                <!-- Text / Value Prop Left Side -->
-                <div class="md:col-span-5 space-y-4">
-                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/10 text-omni-success border border-emerald-500/20">
-                        🚀 Hubungi Kami
-                    </span>
-                    <h2 class="text-3xl font-black text-white leading-tight">
-                        Siap Memodernisasi Tata Kelola Organisasi Anda?
-                    </h2>
-                    <p class="text-xs text-slate-400 leading-relaxed">
-                        Kirim pemesanan lisensi SaaS atau ajukan demonstrasi sistem kustom secara instan langsung ke tim representatif kami melalui tautan WhatsApp terenkripsi.
-                    </p>
-                    
-                    <!-- Tiny trust indicators -->
-                    <div class="pt-2 border-t border-slate-800 space-y-2">
-                        <div class="flex items-center gap-2 text-xs text-slate-400">
-                            <span class="text-omni-success">✓</span>
-                            <span>Aktivasi Akun Demo Instan (&lt; 24 jam)</span>
-                        </div>
-                        <div class="flex items-center gap-2 text-xs text-slate-400">
-                            <span class="text-omni-success">✓</span>
-                            <span>Bantuan Onboarding Seluruh Tingkatan Wilayah</span>
-                        </div>
-                    </div>
-                    
-                    <div class="pt-4">
-                        <button onclick="resetSlides()" class="border border-slate-800 bg-slate-900/50 text-slate-300 px-4 py-2 rounded-xl font-bold text-xs hover:bg-slate-800 transition">
-                            Ulangi Presentasi
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Interactive Form Right Side -->
-                <div class="md:col-span-7 bg-slate-950 border border-slate-800 p-5 rounded-xl space-y-3 shadow-2xl relative">
-                    <div class="border-b border-slate-800 pb-2 mb-1">
-                        <h3 class="text-xs font-bold uppercase text-white flex items-center gap-1.5">
-                            <span class="w-2.5 h-2.5 bg-omni-success rounded-full"></span>
-                            Formulir Kepeminatan & Pemesanan
-                        </h3>
-                        <p class="text-[10px] text-slate-500">Konfirmasi dikirimkan via WhatsApp ke nomor representasi: 0895399799777</p>
-                    </div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                        <!-- Nama -->
-                        <div>
-                            <label class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1">Nama Lengkap Pemohon</label>
-                            <input type="text" id="orderName" placeholder="Contoh: Budi Santoso" class="w-full bg-slate-900 border border-slate-800 rounded px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-omni-success">
-                        </div>
-                        <!-- Organisasi -->
-                        <div>
-                            <label class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1">Nama Organisasi / Parpol</label>
-                            <input type="text" id="orderOrg" placeholder="Contoh: DPD Maju Bersama Jatim" class="w-full bg-slate-900 border border-slate-800 rounded px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-omni-success">
-                        </div>
-                    </div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                        <!-- Tingkat -->
-                        <div>
-                            <label class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1">Tingkatan Organisasi</label>
-                            <select id="orderTier" class="w-full bg-slate-900 border border-slate-800 rounded px-2.5 py-1.5 text-xs text-white focus:outline-none">
-                                <option value="DPP (Pusat Nasional)">DPP (Pusat Nasional)</option>
-                                <option value="DPD / DPW (Wilayah Provinsi)" selected>DPD / DPW (Wilayah Provinsi)</option>
-                                <option value="DPC (Daerah Kabupaten/Kota)">DPC (Daerah Kabupaten/Kota)</option>
-                                <option value="PAC (Kecamatan)">PAC (Kecamatan)</option>
-                            </select>
-                        </div>
-                        <!-- Paket -->
-                        <div>
-                            <label class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1">Paket Kepeminatan</label>
-                            <select id="orderPlan" class="w-full bg-slate-900 border border-slate-800 rounded px-2.5 py-1.5 text-xs text-white focus:outline-none">
-                                <option value="Starter (PAC / Kecamatan)">Starter (PAC / Kecamatan)</option>
-                                <option value="Standard (DPC / Kabupaten-Kota)" selected>Standard (DPC / Kabupaten-Kota)</option>
-                                <option value="Premium (DPD / Provinsi)">Premium (DPD / Provinsi)</option>
-                                <option value="Enterprise (DPP / Konsolidasi Nasional)">Enterprise (DPP / Konsolidasi Nasional)</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <!-- Catatan -->
-                    <div>
-                        <label class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1">Catatan Tambahan (Opsional)</label>
-                        <textarea id="orderNotes" rows="2" placeholder="Tulis rincian kebutuhan khusus atau jadwal demo yang diinginkan..." class="w-full bg-slate-900 border border-slate-800 rounded p-2 text-[10px] text-slate-200 focus:outline-none focus:border-omni-success leading-relaxed"></textarea>
-                    </div>
-                    
-                    <!-- Submit -->
-                    <button onclick="sendToWhatsApp()" class="w-full bg-omni-success text-slate-950 font-bold py-2.5 rounded text-xs flex items-center justify-center gap-1.5 hover:bg-emerald-400 hover:shadow-lg transition">
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.73-1.45L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.42 9.864-9.852.002-2.63-1.023-5.101-2.887-6.967C16.577 1.92 14.113.896 11.49.896c-5.442 0-9.866 4.422-9.87 9.854-.001 1.7.453 3.358 1.316 4.818l-.997 3.637 3.71-.973zm13.114-6.321c-.3-.15-1.771-.875-2.046-.975-.275-.1-.475-.15-.675.15-.2.3-.775.975-.95 1.175-.175.2-.35.225-.65.075-.3-.15-1.265-.467-2.41-1.485-.89-.794-1.49-1.775-1.665-2.075-.175-.3-.019-.463.13-.612.135-.135.3-.35.45-.525.15-.175.2-.3.3-.5.1-.2.05-.375-.025-.525-.075-.15-.675-1.625-.925-2.225-.244-.589-.493-.51-.675-.52-.172-.007-.368-.009-.565-.009-.196 0-.518.074-.789.374-.271.3-.1.3-1.035 1.22-.935.92-2.43 2.22-2.43 5.4 0 3.18 2.315 6.25 2.635 6.675.32.425 4.565 6.97 11.055 9.76 1.543.66 2.749 1.06 3.689 1.36 1.55.49 2.96.42 4.07.25 1.24-.19 2.55-.84 2.91-1.65.36-.81.36-1.5.25-1.65-.11-.15-.41-.25-.71-.4z"/>
-                        </svg>
-                        Hubungi via WhatsApp
-                    </button>
-                </div>
-            </div>
-        </div>
-
     </main>
 
-    <!-- PRESENTATION FOOTER CONTROLS -->
-    <footer class="w-full px-8 py-5 border-t border-slate-800 bg-slate-950 z-30 flex items-center justify-between">
-        
-        <!-- Touch Alternative / Info -->
-        <div class="text-[10px] md:text-xs text-slate-500 font-medium">
-            💡 Navigasi: Klik tombol di kanan, usap layar (swipe), atau gunakan tombol keyboard <span class="text-slate-300">←</span> dan <span class="text-slate-300">→</span>.
-        </div>
-
-        <!-- Pagination Controls -->
-        <div class="flex items-center gap-4">
-            <button onclick="prevSlide()" class="w-12 h-12 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 flex items-center justify-center hover:bg-slate-800 hover:text-white transition shadow" aria-label="Slide Sebelumnya">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg>
-            </button>
-            <button onclick="nextSlide()" class="bg-omni-primary hover:bg-blue-800 text-white w-12 h-12 rounded-xl flex items-center justify-center shadow-lg shadow-blue-900/20 transition" aria-label="Slide Selanjutnya">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
-            </button>
-        </div>
-
-    </footer>
-
-    <!-- INTERACTIVE SCRIPTS -->
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Slides Management state
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.slide');
-        const indicatorNum = document.getElementById('slideIndicatorNum');
-        const indicatorTotal = document.getElementById('slideIndicatorTotal');
-        
-        indicatorTotal.innerText = slides.length;
-
-        function updateSlideVisibility() {
-            slides.forEach((slide, idx) => {
-                if (idx === currentSlide) {
-                    slide.classList.add('active');
-                } else {
-                    slide.classList.remove('active');
-                }
-            });
-            indicatorNum.innerText = currentSlide + 1;
-        }
-
-        function nextSlide() {
-            if (currentSlide < slides.length - 1) {
-                currentSlide++;
-                updateSlideVisibility();
-            }
-        }
-
-        function prevSlide() {
-            if (currentSlide > 0) {
-                currentSlide--;
-                updateSlideVisibility();
-            }
-        }
-
-        function resetSlides() {
-            currentSlide = 0;
-            updateSlideVisibility();
-        }
-
-        // Keyboard Event Listeners for smooth presentations
-        window.addEventListener('keydown', function(event) {
-            if (event.key === 'ArrowRight' || event.key === 'Space' || event.key === ' ') {
-                nextSlide();
+        // Keyboard navigation for Carousel
+        document.addEventListener('keydown', function(event) {
+            const carousel = bootstrap.Carousel.getInstance(document.getElementById('presentationCarousel'));
+            if (!carousel) return;
+            if (event.key === 'ArrowRight' || event.key === 'Space') {
+                carousel.next();
             } else if (event.key === 'ArrowLeft') {
-                prevSlide();
+                carousel.prev();
             }
         });
-
-        // Touch swipe tracking integration
-        let touchstartX = 0;
-        let touchendX = 0;
-        const gestureZone = document.getElementById('slideContainer');
-
-        gestureZone.addEventListener('touchstart', function(event) {
-            touchstartX = event.changedTouches[0].screenX;
-        }, false);
-
-        gestureZone.addEventListener('touchend', function(event) {
-            touchendX = event.changedTouches[0].screenX;
-            handleGesture();
-        }, false);
-
-        function handleGesture() {
-            const threshold = 50; // pixels swiped to trigger transitions
-            if (touchendX < touchstartX - threshold) {
-                nextSlide(); // Swiped left -> load next
-            }
-            if (touchendX > touchstartX + threshold) {
-                prevSlide(); // Swiped right -> load prev
-            }
-        }
-
-        // STEP WORKFLOW INTERACTIVE LOGIC (Slide 4 Widget)
-        function setApprovalStep(stepNum) {
-            const stepHeaders = document.getElementById('stepHeaders').children;
-            const contentBox = document.getElementById('stepContentBox');
-
-            // Reset headers styles
-            for (let i = 0; i < stepHeaders.length; i++) {
-                stepHeaders[i].className = "p-3 rounded-lg bg-slate-900 text-slate-400 transition-all cursor-pointer";
-            }
-
-            // Highlight chosen tab
-            stepHeaders[stepNum - 1].className = "p-3 rounded-lg bg-omni-success text-slate-950 font-bold transition-all cursor-pointer shadow-md";
-
-            // Change content text dynamically inside card
-            if (stepNum === 1) {
-                contentBox.innerHTML = `
-                    <div class="space-y-1">
-                        <h4 class="text-xs font-bold text-white flex items-center gap-2">
-                            <span class="w-2.5 h-2.5 bg-blue-400 rounded-full"></span>
-                            Staf Akuntansi Menginput Rincian Jurnal
-                        </h4>
-                        <p class="text-xs text-slate-400 leading-relaxed">
-                            Semua transaksi pengeluaran atau sumbangan kas baru diinput oleh staf pembantu kas. Status transaksi dikunci sebagai <span class="text-slate-200 font-bold bg-slate-800 px-1.5 py-0.5 rounded">DRAFT</span>. Jurnal draf ini sama sekali tidak boleh memengaruhi Laporan Neraca utama agar data tidak terkontaminasi sebelum diperiksa fisik kuitansinya.
-                        </p>
-                    </div>
-                    <div class="text-[9px] text-slate-500 font-semibold uppercase tracking-wider mt-3">Klik pilihan step 2 atau 3 di atas untuk melihat kelanjutannya</div>
-                `;
-            } else if (stepNum === 2) {
-                contentBox.innerHTML = `
-                    <div class="space-y-1">
-                        <h4 class="text-xs font-bold text-white flex items-center gap-2">
-                            <span class="w-2.5 h-2.5 bg-omni-pending rounded-full"></span>
-                            Bendahara Memverifikasi Kuitansi & Rekonsiliasi
-                        </h4>
-                        <p class="text-xs text-slate-400 leading-relaxed">
-                            Bendahara memeriksa kesesuaian fisik bukti pengeluaran dengan draf jurnal di dalam sistem. Jika disetujui, Bendahara mengubah status menjadi <span class="text-omni-pending font-bold bg-amber-500/10 px-1.5 py-0.5 rounded">REVIEWED</span>. Bila ada kekeliruan, draf ditolak dan dikembalikan kepada staf pembantu untuk direvisi.
-                        </p>
-                    </div>
-                    <div class="text-[9px] text-slate-500 font-semibold uppercase tracking-wider mt-3">Proses berlanjut ke persetujuan ketua. Klik pilihan step 3 di atas.</div>
-                `;
-            } else if (stepNum === 3) {
-                contentBox.innerHTML = `
-                    <div class="space-y-1">
-                        <h4 class="text-xs font-bold text-white flex items-center gap-2">
-                            <span class="w-2.5 h-2.5 bg-emerald-400 rounded-full"></span>
-                            Ketua Mengesahkan Data Jurnal secara Final
-                        </h4>
-                        <p class="text-xs text-slate-400 leading-relaxed">
-                            Ketua Cabang memeriksa berkas secara digital dari dasbor pimpinan. Begitu Ketua menekan <span class="text-omni-success font-bold bg-emerald-500/10 px-1.5 py-0.5 rounded">APPROVED</span>, transaksi langsung dikunci permanen, tidak dapat diedit/dihapus sembarangan oleh siapapun, dan otomatis menghasilkan laporan realisasi terkini secara instan.
-                        </p>
-                    </div>
-                    <div class="text-[9px] text-slate-500 font-semibold uppercase tracking-wider mt-3">Alur otorisasi selesai. Menjamin akurasi audit akuntansi parpol.</div>
-                `;
-            }
-        }
-
-        // REPORT SIMULATOR GALLERY LOGIC (Slide 6 Widget)
-        function switchDocReport(reportType) {
-            const btnIsak = document.getElementById('tabRepISAK');
-            const btnReal = document.getElementById('tabRepRealisasi');
-            const btnApbn = document.getElementById('tabRepAPBN');
-            const viewer = document.getElementById('reportDocumentViewer');
-
-            // Reset tab classes
-            const normalClass = "px-3 py-1.5 rounded bg-slate-900 text-slate-400 transition-all hover:text-white";
-            const activeClass = "px-3 py-1.5 rounded bg-omni-success text-slate-950 transition-all font-bold";
-            btnIsak.className = normalClass;
-            btnReal.className = normalClass;
-            btnApbn.className = normalClass;
-
-            if (reportType === 'ISAK35') {
-                btnIsak.className = activeClass;
-                viewer.innerHTML = `
-                    <div class="text-center font-bold border-b border-slate-300 pb-2 mb-2">
-                        <div class="text-xs uppercase">PARTAI MAJU BERSAMA</div>
-                        <div class="text-[10px] text-slate-600">DEWAN PIMPINAN DAERAH (DPD) PROVINSI JAWA TIMUR</div>
-                        <div class="text-[9px] text-slate-500">Jl. Dharmahusada No. 12, Surabaya | Telp: (031) 5928xxx</div>
-                    </div>
-                    <div class="text-center font-bold text-slate-800 uppercase mb-2 text-xs">Laporan Aktivitas (ISAK 35)</div>
-                    <div class="text-right text-[8px] italic text-slate-500 mb-1">Periode yang Berakhir pada 31 Desember 2026</div>
-                    <table class="w-full text-left border-collapse">
-                        <thead>
-                            <tr class="border-b border-slate-400 text-slate-700 font-bold">
-                                <th class="py-1">Uraian Akun</th>
-                                <th class="py-1 text-right">Tanpa Pembatasan</th>
-                                <th class="py-1 text-right">Dengan Pembatasan</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="border-b border-slate-100 font-bold"><td colspan="3" class="py-1 text-slate-800">PENDAPATAN DAN SUMBANGAN</td></tr>
-                            <tr><td class="pl-3 py-0.5">- Pendapatan Sumbangan Anggota</td><td class="text-right">Rp 1.500.000.000</td><td class="text-right">-</td></tr>
-                            <tr><td class="pl-3 py-0.5">- Dana Hibah APBD (Negara)</td><td class="text-right">-</td><td class="text-right">Rp 1.000.000.000</td></tr>
-                            <tr class="border-t border-slate-300 font-bold"><td>Total Pendapatan</td><td class="text-right">Rp 1.500.000.000</td><td class="text-right">Rp 1.000.000.000</td></tr>
-                            <tr class="border-b border-slate-100 font-bold"><td colspan="3" class="py-1 text-slate-800 pt-2">BEBAN DAN PENGELUARAN</td></tr>
-                            <tr><td class="pl-3 py-0.5">- Beban Program Kepemudaan</td><td class="text-right">Rp 35.000.000</td><td class="text-right">-</td></tr>
-                            <tr><td class="pl-3 py-0.5">- Beban ATK & Operasional Kantor</td><td class="text-right">Rp 15.000.000</td><td class="text-right">Rp 45.000.000</td></tr>
-                            <tr class="border-t border-slate-300 font-bold"><td>Kenaikan (Penurunan) Aset Netto</td><td class="text-right text-emerald-600">Rp 1.450.000.000</td><td class="text-right text-emerald-600">Rp 955.000.000</td></tr>
-                        </tbody>
-                    </table>
-                    <div class="flex justify-between pt-4 mt-4 border-t border-slate-200">
-                        <div class="text-center w-28">Mengetahui,<br><br><br><strong>Ir. H. Sudirman</strong><br>Ketua DPD Jatim</div>
-                        <div class="text-center w-28">Disusun Oleh,<br><br><br><strong>Siti Aminah, S.E.</strong><br>Bendahara DPD Jatim</div>
-                    </div>
-                `;
-            } else if (reportType === 'REALISASI') {
-                btnReal.className = activeClass;
-                viewer.innerHTML = `
-                    <div class="text-center font-bold border-b border-slate-300 pb-2 mb-2">
-                        <div class="text-xs uppercase">PARTAI MAJU BERSAMA</div>
-                        <div class="text-[10px] text-slate-600">DEWAN PIMPINAN DAERAH (DPD) PROVINSI JAWA TIMUR</div>
-                    </div>
-                    <div class="text-center font-bold text-slate-800 uppercase mb-2 text-xs">Laporan Realisasi Anggaran Program</div>
-                    <div class="text-right text-[8px] italic text-slate-500 mb-1">Hingga Periode Juni 2026</div>
-                    <table class="w-full text-left border-collapse">
-                        <thead>
-                            <tr class="border-b border-slate-400 text-slate-700 font-bold">
-                                <th class="py-1">Nama Program Kerja</th>
-                                <th class="py-1 text-right">Plafon Anggaran</th>
-                                <th class="py-1 text-right">Realisasi</th>
-                                <th class="py-1 text-right">Sisa Anggaran</th>
-                                <th class="py-1 text-right">% Realisasi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td class="py-1 font-semibold">1. Bakti Sosial Rakyat Jatim</td><td class="text-right">Rp 50.000.000</td><td class="text-right">Rp 35.000.000</td><td class="text-right">Rp 15.000.000</td><td class="text-right text-emerald-600 font-bold">70%</td></tr>
-                            <tr><td class="py-1 font-semibold">2. Konsolidasi Kader Daerah</td><td class="text-right">Rp 30.000.000</td><td class="text-right">Rp 15.000.000</td><td class="text-right">Rp 15.000.000</td><td class="text-right text-emerald-600 font-bold">50%</td></tr>
-                            <tr><td class="py-1 font-semibold">3. Kampanye Wilayah Terpadu</td><td class="text-right">Rp 200.000.000</td><td class="text-right">Rp 0</td><td class="text-right">Rp 200.000.000</td><td class="text-right text-slate-500 font-bold">0%</td></tr>
-                            <tr class="border-t-2 border-slate-400 font-bold text-slate-800">
-                                <td class="py-1">TOTAL REALISASI</td>
-                                <td class="text-right">Rp 280.000.000</td>
-                                <td class="text-right">Rp 50.000.000</td>
-                                <td class="text-right">Rp 230.000.000</td>
-                                <td class="text-right text-emerald-700">17.8%</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                `;
-            } else if (reportType === 'APBN') {
-                btnApbn.className = activeClass;
-                viewer.innerHTML = `
-                    <div class="text-center font-bold border-b border-slate-300 pb-2 mb-2">
-                        <div class="text-xs uppercase">PARTAI MAJU BERSAMA</div>
-                        <div class="text-[10px] text-slate-600">DEWAN PIMPINAN DAERAH (DPD) PROVINSI JAWA TIMUR</div>
-                    </div>
-                    <div class="text-center font-bold text-slate-800 uppercase mb-2 text-xs">Laporan Penggunaan Dana Bantuan Politik (APBD/APBN)</div>
-                    <div class="text-right text-[8px] italic text-slate-500 mb-1">Kategori: Dana Terikat (Wajib Audit BPK)</div>
-                    <table class="w-full text-left border-collapse">
-                        <thead>
-                            <tr class="border-b border-slate-400 text-slate-700 font-bold">
-                                <th class="py-1">Uraian Belanja</th>
-                                <th class="py-1 text-right">Alokasi Anggaran</th>
-                                <th class="py-1 text-right">Realisasi Belanja</th>
-                                <th class="py-1 text-center">Validasi BPK</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td class="py-1">A. Kegiatan Pendidikan Politik & Kaderisasi</td><td class="text-right">Rp 600.000.000</td><td class="text-right">Rp 420.000.000</td><td class="text-right text-emerald-600 font-bold text-center">✓ Sesuai</td></tr>
-                            <tr><td class="py-1">B. Operasional Sekretariat Kantor DPC</td><td class="text-right">Rp 400.000.000</td><td class="text-right">Rp 315.000.000</td><td class="text-right text-emerald-600 font-bold text-center">✓ Sesuai</td></tr>
-                            <tr class="border-t-2 border-slate-400 font-bold text-slate-800">
-                                <td class="py-1">TOTAL PENGGUNAAN DANA</td>
-                                <td class="text-right">Rp 1.000.000.000</td>
-                                <td class="text-right">Rp 735.000.000</td>
-                                <td class="text-center text-emerald-700">Audit-Ready</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                `;
-            }
-        }
-
-        // ==========================================
-        // ✨ GEMINI API REAL INTEGRATION CODE
-        // ==========================================
-        const mockCases = {
-            kasus_banpol_apbn: `LAPORAN PENGGUNAAN DANA BANTUAN POLITIK APBD - DPC KOTA MOJOKERTO
--------------------------------------------------------------
-Penerimaan Negara (Bantuan Politik): Rp 150.000.000
-
-Daftar Pengeluaran Riil:
-1. Pembelian ATK Kesekretariatan: Rp 15.000.000
-2. Sewa Aula Sosialisasi Pemilih Pemula: Rp 35.000.000
-3. Kontribusi Langsung ke Dana Kampanye Paslon Kepala Daerah: Rp 100.000.000`,
-
-            kasus_isak35: `LAPORAN KEUANGAN TAHUNAN - YAYASAN PENYALUR ASPIRASI RAKYAT
--------------------------------------------------------------
-Pernyataan Hasil Keuangan:
-1. Laporan Laba Rugi mencatat Laba Bersih Tahun Berjalan sebesar Rp 450.000.000.
-2. Sisa Ekuitas Saham dicatatkan sebagai modal yang dapat dibagikan kepada pengurus partai pendiri yayasan.`,
-
-            kasus_overbudget: `LAPORAN EVALUASI ANGGARAN PROGRAM KERJA SOSIAL
--------------------------------------------------------------
-Program: Bakti Sosial Rakyat Jatim
-- Plafon Anggaran Maksimal: Rp 50.000.000
-- Pengeluaran Riil Pembelian Sembako: Rp 55.000.000
-- Selisih Defisit: Rp 5.000.000 (Overbudget)`
-        };
-
-        function loadAiCase() {
-            const selectedCase = document.getElementById('aiCaseSelector').value;
-            document.getElementById('aiInputData').value = mockCases[selectedCase];
-        }
-
-        // Exponential backoff fetch helper for Gemini API
-        async function callGemini(promptText, systemPrompt) {
-            const apiKey = "{{ $geminiApiKey }}"; // Will be injected at runtime
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
-            const payload = {
-                contents: [{ parts: [{ text: promptText }] }],
-                systemInstruction: { parts: [{ text: systemPrompt }] }
-            };
-            
-            let delay = 1000;
-            for (let i = 0; i < 5; i++) {
-                try {
-                    const response = await fetch(url, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(payload)
-                    });
-                    if (response.ok) {
-                        const result = await response.json();
-                        return result.candidates?.[0]?.content?.parts?.[0]?.text || "Tidak ada respon dari AI.";
-                    }
-                } catch (e) {
-                    // Fail silently, retry with backoff
-                }
-                await new Promise(resolve => setTimeout(resolve, delay));
-                delay *= 2;
-            }
-            throw new Error("Gagal menghubungi AI setelah beberapa percobaan. Silakan coba lagi nanti.");
-        }
-
-        async function runGeminiAnalysis() {
-            const btn = document.getElementById('btnRunAi');
-            const output = document.getElementById('aiOutputViewer');
-            const inputData = document.getElementById('aiInputData').value;
-
-            if (!inputData.trim()) {
-                output.innerHTML = `<div class="text-red-400 font-bold">Harap masukkan data laporan terlebih dahulu sebelum dianalisis!</div>`;
-                return;
-            }
-
-            // Set loading state
-            btn.disabled = true;
-            btn.innerHTML = `<span class="animate-spin inline-block w-4 h-4 border-2 border-slate-950 border-t-transparent rounded-full mr-1.5"></span> Menganalisis...`;
-            output.innerHTML = `
-                <div class="flex flex-col items-center justify-center py-10 space-y-2">
-                    <span class="animate-bounce text-xl">✨</span>
-                    <p class="text-xs text-slate-400 animate-pulse">Menghubungi Gemini 2.5 Flash untuk pemindaian audit instan...</p>
-                </div>
-            `;
-
-            const systemPrompt = "Anda adalah asisten auditor akuntansi pemerintahan dan parpol ahli di Indonesia. Berikan tinjauan singkat, tegas, dan taktis dalam bahasa Indonesia tentang kepatuhan laporan terhadap standar ISAK 35, regulasi KPU/BPK (khususnya larangan penggunaan dana banpol untuk kampanye), atau efisiensi anggaran. Berikan poin-poin analisis yang jelas dan rekomendasi perbaikan taktis. Format output menggunakan HTML ramah pembaca (gunakan tag strong, bullet points, atau paragraf berjarak secara eksplisit, jangan gunakan markdown asterisks karena akan dirender mentah).";
-
-            try {
-                const aiResponse = await callGemini(inputData, systemPrompt);
-                
-                // Format response loosely converting markdown styling (if any remains) to readable HTML
-                let formattedResponse = aiResponse
-                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                    .replace(/\* /g, '• ')
-                    .replace(/\n/g, '<br>');
-
-                output.innerHTML = `<div class="space-y-2 text-slate-300 font-sans leading-relaxed">${formattedResponse}</div>`;
-            } catch (error) {
-                output.innerHTML = `
-                    <div class="p-3 bg-red-500/10 border border-red-500/20 rounded text-red-300 space-y-1">
-                        <p class="font-bold">Gagal Menganalisis Laporan</p>
-                        <p class="text-[11px] leading-relaxed">${error.message}</p>
-                    </div>
-                `;
-            } finally {
-                btn.disabled = false;
-                btn.innerHTML = `✨ Analisis dengan Gemini AI`;
-            }
-        }
-
-        // ==========================================
-        // 💬 WHATSAPP INTEREST & ORDER FORM LOGIC
-        // ==========================================
-        function sendToWhatsApp() {
-            const name = document.getElementById('orderName').value.trim();
-            const org = document.getElementById('orderOrg').value.trim();
-            const tier = document.getElementById('orderTier').value;
-            const plan = document.getElementById('orderPlan').value;
-            const notes = document.getElementById('orderNotes').value.trim();
-
-            if (!name || !org) {
-                alert("Mohon lengkapi Nama dan Nama Organisasi/Parpol Anda terlebih dahulu!");
-                return;
-            }
-
-            // Construct beautifully structured WhatsApp template message
-            const textMessage = `Halo Tim Representasi *OmniCivic*,\n\n` +
-                                `Saya tertarik untuk mengetahui lebih lanjut / melakukan pemesanan sistem OmniCivic dengan rincian berikut:\n\n` +
-                                `*DETAIL PEMOHON:*\n` +
-                                `• *Nama Pemohon:* ${name}\n` +
-                                `• *Organisasi/Parpol:* ${org}\n` +
-                                `• *Tingkatan Wilayah:* ${tier}\n` +
-                                `• *Paket Kepeminatan:* ${plan}\n` +
-                                `• *Catatan Tambahan:* ${notes ? notes : '-'}\n\n` +
-                                `Mohon untuk dapat menjadwalkan demonstrasi sistem atau menghubungi saya kembali pada nomor ini. Terima kasih!`;
-
-            const encodedText = encodeURIComponent(textMessage);
-            const waUrl = `https://wa.me/62895399799777?text=${encodedText}`;
-            
-            // Open WhatsApp in a new tab/window
-            window.open(waUrl, '_blank');
-        }
-
-        // Initialize state on load
-        window.onload = function() {
-            updateSlideVisibility();
-            switchDocReport('ISAK35'); // Load first report sample as default
-            loadAiCase(); // Load first AI case mock data
-        }
     </script>
-
 </body>
 </html>
